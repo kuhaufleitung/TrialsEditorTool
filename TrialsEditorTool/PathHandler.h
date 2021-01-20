@@ -1,0 +1,28 @@
+#pragma once
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <filesystem>
+#include <vector>
+
+class CPathHandle {
+public:
+	//CPathHandle();
+	void mPathDefaults();
+	void mUbiSavegamePath();
+	void mSetArrayEditor();
+	bool mCfgFound(const char* filename);
+
+	std::string mGetEditorPath();
+	std::string mGetUbiPath();
+
+private:
+	std::fstream CfgFile;
+	std::string const PathName = "Path.cfg";
+	std::string EditorPath;
+	std::string UbiPath;
+	std::stringstream FileStream;
+	std::vector<std::string> FolderArray;
+	
+	char* docdir = getenv("USERPROFILE"); //path to Documents folder
+};
