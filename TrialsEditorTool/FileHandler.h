@@ -6,8 +6,7 @@
 class CFileHandle {
 public:
 	void Init();
-	void SetDirectory(CPathHandle* input);
-	void GetFirstFile(CPathHandle temp);
+	void GetFirstFile(LPCSTR input);
 private:
 	CPathHandle* Path;
 	HANDLE hmFind;

@@ -10,7 +10,6 @@ public:
 	//CPathHandle();
 	void mPathDefaults();
 	void mUbiSavegamePath();
-	void mSetArrayEditor();
 	bool mCfgFound(const char* filename);
 
 	std::string mGetEditorPath();
@@ -22,7 +21,6 @@ private:
 	std::string EditorPath;
 	std::string UbiPath;
 	std::stringstream FileStream;
-	std::vector<std::string> FolderArray;
-	
+
 	char* docdir = getenv("USERPROFILE"); //path to Documents folder
 };
