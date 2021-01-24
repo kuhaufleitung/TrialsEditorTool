@@ -2,12 +2,11 @@
 #include "PathHandler.h"
 
 
-void CFileHandle::GetFirstFile(LPCSTR input) {
-	LPCSTR addfix = "\\*";
-	LPCSTR test = "C:\\Users\\FabiWindows\\Documents\\TrialsFusion\\SavedGames\\test\\*";
-	std::string(test).append(addfix).c_str();
-	hmFind = FindFirstFileA(test, &FileAttributes);
-	while ((*FileAttributes.cFileName == '.') || (*FileAttributes.cFileName == '..') ||(FILE_ATTRIBUTE_DIRECTORY)) {
+void CFileHandle::GetFirstFile(std::string input) {
+
+	hmFind = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &FileAttributes); //handle returns first file
+
+	while ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '.')) {
 		FindNextFileA(hmFind, &FileAttributes);
 	}
 }
