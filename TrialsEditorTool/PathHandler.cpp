@@ -45,21 +45,6 @@ std::string CPathHandle::mGetUbiPath() {
 	return UbiPath;
 }
 
-//sets an array to every trackfolder path
-void CPathHandle::mSetArrayEditor() {
-	std::string path = CPathHandle::mGetEditorPath();
-	int i = 0;
-	for (const auto& entry : fs::directory_iterator(path)) {
-		for (;i < FolderArray.size(); i++) {
-			std::cout << entry.path().u8string() << std::endl;
-			FolderArray[i] = { entry.path().u8string() };
-			std::cout << FolderArray[i];
-		}
-	}
-}
-
-
-
 void CPathHandle::mUbiSavegamePath() {
 
 }

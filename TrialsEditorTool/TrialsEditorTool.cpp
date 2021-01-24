@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "Resource.h"
 #include "PathHandler.h"
+#include "FileHandler.h"
 
 #define MAX_LOADSTRING 100
 
@@ -27,9 +28,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
-    CPathHandle* Path = new CPathHandle;
-    Path->mPathDefaults();
-    Path->mSetArrayEditor();
+   // CPathHandle* Path = new CPathHandle;
+    //Path->mPathDefaults();
+    //Path->mSetArrayEditor();
+    CFileHandle* File = new CFileHandle;
+    File->Init();
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_TRIALSEDITORTOOL, szWindowClass, MAX_LOADSTRING);
