@@ -6,7 +6,7 @@
 class CFileHandle {
 public:
 	void Init();
-	void GetFirstFile(LPCSTR input);
+	void GetFirstFile(std::string input);
 private:
 	CPathHandle* Path;
 	HANDLE hmFind;
