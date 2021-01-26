@@ -7,7 +7,7 @@
 
 class CFileHandle {
 public:
-	void Init();
+	void Init(std::string classstring);
 	void mGetFirstFile(std::string input);
 	void mGetNextFiles();
 
