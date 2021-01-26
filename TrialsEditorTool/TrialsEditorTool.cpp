@@ -13,13 +13,15 @@
 HINSTANCE hInst;                                // current instance
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
 WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
+HWND hWnd;
+HWND hList;
 
 // Forward declarations of functions included in this code module:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK    ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam, std::string ListArray);
+//INT_PTR CALLBACK    ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam, std::string ListArray);
   
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -42,6 +44,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Profile.mGetProfileID(Path.mGetUbiPath());
     Profile.mRearrangeID();
     
+
     //
     ////////////////////////////////////////////////////////
     
@@ -55,8 +58,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return FALSE;
     }
+    
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TRIALSEDITORTOOL));
+
+    hList = CreateWindowEx(WS_EX_CLIENTEDGE, L"listbox", L"", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL, 35, 50, 400, 600, hWnd, (HMENU)IDC_LISTBOX, 0, 0);
+    SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)File->TrackID[0].c_str());
+    UpdateWindow(hWnd);
+
 
     MSG msg;
 
@@ -71,6 +80,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     return (int) msg.wParam;
+
 }
 
 
@@ -115,7 +125,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Store instance handle in our global variable
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+   hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
@@ -165,7 +175,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: Add any drawing code that uses hdc here...
-            HWND  hWndList = CreateWindowExA(WS_EX_CLIENTEDGE, "Listbox", NULL, WS_CHILD | WS_VISIBLE | ES_AUTOVSCROLL | LBS_NOTIFY, 50, 35, 400, 600, hWnd, NULL, GetModuleHandle(NULL), ListBox);
             EndPaint(hWnd, &ps);
         }
         break;
@@ -197,7 +206,7 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     }
     return (INT_PTR)FALSE;
 }
-
+/*
 INT_PTR CALLBACK ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam, std::string ListArray)
 {
         
@@ -242,7 +251,7 @@ INT_PTR CALLBACK ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam, 
 
                 // Get item data.
                 int i = (int)SendMessage(hwndList, LB_GETITEMDATA, lbItem, 0);
-/*
+
                 // Do something with the data from Roster[i]
                 TCHAR buff[MAX_PATH];
                 StringCbPrintf(buff, ARRAYSIZE(buff),
@@ -251,7 +260,7 @@ INT_PTR CALLBACK ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam, 
                     Roster[i].nGoalsScored);
 
                 SetDlgItemText(hDlg, IDC_STATISTICS, buff);
-                return TRUE; */
+                return TRUE; 
             }
             }
         }
@@ -260,3 +269,4 @@ INT_PTR CALLBACK ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam, 
     }
     return FALSE;
 }
+*/
