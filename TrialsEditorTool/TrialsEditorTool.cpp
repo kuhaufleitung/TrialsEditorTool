@@ -19,7 +19,8 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-
+INT_PTR CALLBACK    ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam, std::string ListArray);
+  
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -33,8 +34,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
     CPathHandle Path;
     Path.mPathDefaults();
+    
     CFileHandle* File = new CFileHandle;
     File->Init(Path.mGetEditorPath().c_str());
+    
     CProfileID Profile;
     Profile.mGetProfileID(Path.mGetUbiPath());
     Profile.mRearrangeID();
@@ -162,6 +165,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: Add any drawing code that uses hdc here...
+            HWND  hWndList = CreateWindowExA(WS_EX_CLIENTEDGE, "Listbox", NULL, WS_CHILD | WS_VISIBLE | ES_AUTOVSCROLL | LBS_NOTIFY, 50, 35, 400, 600, hWnd, NULL, GetModuleHandle(NULL), ListBox);
             EndPaint(hWnd, &ps);
         }
         break;
@@ -194,6 +198,65 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     return (INT_PTR)FALSE;
 }
 
-//INT_PTR CALLBACK ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
+INT_PTR CALLBACK ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam, std::string ListArray)
+{
+        
+    switch (message)
+    {
+    case WM_INITDIALOG:
+    {
+        // Add items to list. 
+        HWND hwndList = GetDlgItem(hDlg, IDC_LISTBOX);
+        for (int i = 0; i < ListArray.size(); i++)
+        {
+            int pos = (int)SendMessage(hwndList, LB_ADDSTRING, 0,
+                (LPARAM)ListArray[i]);
+            // Set the array index of the player as item data.
+            // This enables us to retrieve the item from the array
+            // even after the items are sorted by the list box.
+            SendMessage(hwndList, LB_SETITEMDATA, pos, (LPARAM)i);
+        }
+        // Set input focus to the list box.
+        SetFocus(hwndList);
+        return TRUE;
+    }
 
-//}
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+        case IDCANCEL:
+            EndDialog(hDlg, LOWORD(wParam));
+            return TRUE;
+
+        case IDC_LISTBOX:
+        {
+            switch (HIWORD(wParam))
+            {
+            case LBN_SELCHANGE:
+            {
+                HWND hwndList = GetDlgItem(hDlg, IDC_LISTBOX);
+
+                // Get selected index.
+                int lbItem = (int)SendMessage(hwndList, LB_GETCURSEL, 0, 0);
+
+                // Get item data.
+                int i = (int)SendMessage(hwndList, LB_GETITEMDATA, lbItem, 0);
+/*
+                // Do something with the data from Roster[i]
+                TCHAR buff[MAX_PATH];
+                StringCbPrintf(buff, ARRAYSIZE(buff),
+                    TEXT("Position: %s\nGames played: %d\nGoals: %d"),
+                    Roster[i].achPosition, Roster[i].nGamesPlayed,
+                    Roster[i].nGoalsScored);
+
+                SetDlgItemText(hDlg, IDC_STATISTICS, buff);
+                return TRUE; */
+            }
+            }
+        }
+        return TRUE;
+        }
+    }
+    return FALSE;
+}
