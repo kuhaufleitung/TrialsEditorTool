@@ -4,7 +4,7 @@
 //retrieves first TrackID
 void CFileHandle::mGetFirstFile(std::string input) {
 
-	hFind = FindFirstFileA((LPCSTR)(input + "\\test\\*").c_str(), &FileAttributes); //handle keeps index
+	hFind = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &FileAttributes); //handle keeps index
 
 	while ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '.')) {
 		FindNextFileA(hFind, &FileAttributes);
