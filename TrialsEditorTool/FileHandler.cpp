@@ -16,13 +16,12 @@ void CFileHandle::mGetFirstFile(std::string input) {
 void CFileHandle::mGetNextFiles() {
 	while ((GetLastError() & ERROR_NO_MORE_FILES) == 0) {
 
+		FindNextFileA(hFind, &FileAttributes);
+
 		if ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '.')){
-			FindNextFileA(hFind, &FileAttributes);
 			TrackID.push_back(FileAttributes.cFileName); //writes Path into a Array
-			GetLastError();
 		}
 	}
-	TrackID.erase(TrackID.end() - 1, TrackID.end()); //erases last double entry
 	FindClose(hFind);
 }
 
