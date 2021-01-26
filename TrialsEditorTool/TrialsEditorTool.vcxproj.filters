@@ -30,6 +30,9 @@
     <ClInclude Include="PathHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ProfileID.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrialsEditorTool.cpp">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PathHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProfileID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

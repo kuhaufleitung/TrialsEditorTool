@@ -15,6 +15,6 @@ private:
 	CPathHandle* Path;
 	HANDLE hFind;
 	WIN32_FIND_DATAA FileAttributes;
-	std::vector<std::string> mTrackID;
+	std::vector<std::string> TrackID;
 
 };
