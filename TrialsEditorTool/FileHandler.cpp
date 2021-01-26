@@ -26,8 +26,11 @@ void CFileHandle::mGetNextFiles() {
 }
 
 
+
 //Starts all that shit
 void CFileHandle::Init(std::string classstring) {
 	mGetFirstFile(classstring);
 	mGetNextFiles();
 }
+
+

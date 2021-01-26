@@ -10,11 +10,14 @@ public:
 	void Init(std::string classstring);
 	void mGetFirstFile(std::string input);
 	void mGetNextFiles();
+	//INT_PTR CALLBACK ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+
+
+	std::vector<std::string> TrackID;
 
 private:
 	CPathHandle* Path;
 	HANDLE hFind;
 	WIN32_FIND_DATAA FileAttributes;
-	std::vector<std::string> TrackID;
 
 };
