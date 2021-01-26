@@ -3,7 +3,6 @@
 #include <fstream>
 #include <sstream>
 #include <filesystem>
-#include <vector>
 
 class CPathHandle {
 public:
