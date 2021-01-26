@@ -6,7 +6,6 @@
 
 class CPathHandle {
 public:
-	//CPathHandle();
 	void mPathDefaults();
 	void mUbiSavegamePath();
 	bool mCfgFound(const char* filename);

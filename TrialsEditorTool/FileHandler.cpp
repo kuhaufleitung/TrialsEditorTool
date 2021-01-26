@@ -4,24 +4,25 @@
 //retrieves first TrackID
 void CFileHandle::mGetFirstFile(std::string input) {
 
-	hFind = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &FileAttributes); //handle keeps index
+	hFind = FindFirstFileA((LPCSTR)(input + "\\test\\*").c_str(), &FileAttributes); //handle keeps index
 
 	while ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '.')) {
 		FindNextFileA(hFind, &FileAttributes);
 	}
-	mTrackID.push_back(FileAttributes.cFileName); //writes Path into a Array
+	TrackID.push_back(FileAttributes.cFileName); //writes Path into a Array
 }
 
 //retrieves Rest of TrackIDs
 void CFileHandle::mGetNextFiles() {
-	while (GetLastError() != ERROR_NO_MORE_FILES) {
+	while ((GetLastError() & ERROR_NO_MORE_FILES) == 0) {
 
-		if ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '.')) {
+		if ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '.')){
 			FindNextFileA(hFind, &FileAttributes);
-			mTrackID.push_back(FileAttributes.cFileName); //writes Path into a Array
+			TrackID.push_back(FileAttributes.cFileName); //writes Path into a Array
+			GetLastError();
 		}
 	}
-	mTrackID.erase(mTrackID.end() - 1, mTrackID.end()); //erases last double entry
+	TrackID.erase(TrackID.end() - 1, TrackID.end()); //erases last double entry
 	FindClose(hFind);
 }
 
