@@ -1,14 +1,14 @@
 #include "CopyProcess.h"
 
-std::string CCopy::GetTemplatePath(std::string input) {
+std::string CCopy::mGetTemplatePath(std::string input) {
 
 	hFindTemp = FindFirstFileA((LPCSTR)(input + "//*").c_str(), &data);
-	TemplateFolder = data.cFileName;
+	mTemplateFolder = data.cFileName;
 
-	while (TemplateFolder.find("0000000000000") == std::string::npos) {
+	while (mTemplateFolder.find("0000000000000") == std::string::npos) {
 		FindNextFileA(hFindTemp, &data);
-		TemplateFolder = data.cFileName;
+		mTemplateFolder = data.cFileName;
 	}
 	FindClose(hFindTemp);
-	return TemplateFolder;
+	return mTemplateFolder;
 }
