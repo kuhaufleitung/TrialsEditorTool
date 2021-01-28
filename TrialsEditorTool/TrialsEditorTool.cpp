@@ -34,7 +34,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     ////////////////////////////////////////////////////////
     //actualProgrammCode
-    
+    HWND hButton;
+
+
+
     CPathHandle Path;
     Path.mPathDefaults();
     
@@ -65,15 +68,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TRIALSEDITORTOOL));
-
+    
+    ////////////////////////////////////////////////////////
     //creates Listbox
     hList = CreateWindowExW(WS_EX_CLIENTEDGE, L"listbox", L"", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL, 20, 20, 400, 600, hWnd, (HMENU)IDC_LISTBOX, 0, 0);
     //fills Listbox with Track entries
     for (int i = 0; i < File->TrackNames.size(); i++) {
         SendMessageW(hList, LB_ADDSTRING, 0, (LPARAM)File->TrackNames[i].c_str());
     }
-    UpdateWindow(hWnd);
-
+    //creates Button
+    hButton = CreateWindowExW(WS_EX_WINDOWEDGE, L"button", L"Port to Editor", WS_TABSTOP | WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 20, 630, 400, 40, hWnd, (HMENU)ID_PORTBUTTON, hInst, 0);
+    ////////////////////////////////////////////////////////
 
     MSG msg;
 
@@ -134,7 +139,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Store instance handle in our global variable
 
    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-       CW_USEDEFAULT, CW_USEDEFAULT, 460, 900, nullptr, nullptr, hInstance, nullptr);
+       CW_USEDEFAULT, CW_USEDEFAULT, 460, 740, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {

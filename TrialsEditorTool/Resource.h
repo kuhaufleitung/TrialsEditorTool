@@ -16,6 +16,7 @@
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1
 #define IDC_LISTBOX				307
+#define ID_PORTBUTTON			308
 #endif
 // Next default values for new objects
 //
