@@ -6,6 +6,7 @@
 #include "PathHandler.h"
 #include "TrackArray.h"
 #include "ProfileID.h"
+#include "CopyProcess.h"
 
 #define MAX_LOADSTRING 100
 
@@ -37,14 +38,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     CPathHandle Path;
     Path.mPathDefaults();
     
-    CFileHandle* File = new CFileHandle;
+    TrackArray* File = new TrackArray;
     File->Init(Path.mGetEditorPath().c_str());
     
     CProfileID Profile;
     Profile.mGetProfileID(Path.mGetUbiPath());
     Profile.mRearrangeID();
     
+    CCopy* Copy = new CCopy;
+    Copy->mGetTemplatePath(Path.mGetEditorPath().c_str());
 
+    File->mGetTracknameList(Path.mGetEditorPath());
     //
     ////////////////////////////////////////////////////////
     
@@ -63,7 +67,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TRIALSEDITORTOOL));
 
     hList = CreateWindowEx(WS_EX_CLIENTEDGE, L"listbox", L"", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL, 35, 50, 400, 600, hWnd, (HMENU)IDC_LISTBOX, 0, 0);
-    SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)File->TrackID[0].c_str());
+    for (int i = 0; i < File->TrackNames.size(); i++) {
+        SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)File->TrackNames[i].c_str());
+    }
     UpdateWindow(hWnd);
 
 
