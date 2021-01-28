@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "Resource.h"
 #include "PathHandler.h"
-#include "FileHandler.h"
+#include "TrackArray.h"
 #include "ProfileID.h"
 
 #define MAX_LOADSTRING 100
