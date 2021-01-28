@@ -15,11 +15,11 @@ public:
 	//bool mNameFileFound(const char* filename);
 
 	std::vector<std::string> TrackID;
-	std::vector<std::string> TrackNames;
+	std::vector<std::wstring> TrackNames;
 
 private:
-	std::ifstream NameOpen;
-	std::string buffer;
+	std::wifstream NameOpen;
+	std::wstring buffer;
 
 	HANDLE hFind;
 	WIN32_FIND_DATAA FileAttributes;

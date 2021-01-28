@@ -66,9 +66,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TRIALSEDITORTOOL));
 
-    hList = CreateWindowEx(WS_EX_CLIENTEDGE, L"listbox", L"", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL, 35, 50, 400, 600, hWnd, (HMENU)IDC_LISTBOX, 0, 0);
+    hList = CreateWindowExW(WS_EX_CLIENTEDGE, L"listbox", L"", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL, 35, 50, 400, 600, hWnd, (HMENU)IDC_LISTBOX, 0, 0);
     for (int i = 0; i < File->TrackNames.size(); i++) {
-        SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)File->TrackNames[i].c_str());
+        SendMessageW(hList, LB_ADDSTRING, 0, (LPARAM)File->TrackNames[i].c_str());
     }
     UpdateWindow(hWnd);
 
