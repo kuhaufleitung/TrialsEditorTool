@@ -10,8 +10,8 @@ public:
 private:
 	std::string mTemplateFolder;
 
-	std::fstream TemplateMetadata;
-	std::fstream TemplateDisplayname;
+	//std::fstream TemplateMetadata;
+	//std::fstream TemplateDisplayname;
 	
 	HANDLE hFindTemp;
 	WIN32_FIND_DATAA data;
