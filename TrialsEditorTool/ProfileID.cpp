@@ -19,6 +19,9 @@ void CProfileID::mRearrangeID() {
 	ArrangedBits[4] = ProfileID.substr(24, 4);
 	ArrangedBits[5] = ProfileID.substr(28, 4);
 	ArrangedBits[6] = ProfileID.substr(32, 4);
+	//splitted ID into array
+
+	//sort everything
 	SortedID = ArrangedBits[2];
 	SortedID.append(ArrangedBits[1]);
 	SortedID.append(ArrangedBits[0]);
