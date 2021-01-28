@@ -5,10 +5,11 @@
 
 class CCopy {
 public:
-	std::string GetTemplatePath(std::string input);
-	std::string TemplateFolder;
+	std::string mGetTemplatePath(std::string input);
 
 private:
+	std::string mTemplateFolder;
+
 	std::fstream TemplateMetadata;
 	std::fstream TemplateDisplayname;
 	
