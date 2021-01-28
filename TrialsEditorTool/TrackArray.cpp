@@ -1,7 +1,7 @@
 #include "TrackArray.h"
 
 //retrieves first TrackID
-void CFileHandle::mGetFirstFile(std::string input) {
+void TrackArray::mGetFirstFile(std::string input) {
 
 	hFind = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &FileAttributes); //handle keeps index
 
@@ -12,7 +12,7 @@ void CFileHandle::mGetFirstFile(std::string input) {
 }
 
 //retrieves Rest of TrackIDs
-void CFileHandle::mGetNextFiles() {
+void TrackArray::mGetNextFiles() {
 	while ((GetLastError() & ERROR_NO_MORE_FILES) == 0) {
 
 		FindNextFileA(hFind, &FileAttributes);
@@ -26,10 +26,28 @@ void CFileHandle::mGetNextFiles() {
 
 
 
+void TrackArray::mGetTracknameList(std::string Path) {
+	for (int i = 0; i < TrackID.size(); i++) {
+		
+		NameOpen.open(Path + "\\" + TrackID[i] + "\\" + "displayname");
+		std::getline(NameOpen, buffer);
+		TrackNames.push_back(buffer);
+		NameOpen.close();
+	}
+}
+/*
+//checks displayname access
+bool TrackArray::mNameFileFound(const char* filename)
+{
+	std::ifstream infile(filename);
+	return infile.good();
+}
+*/
+
+
 //Starts all that shit
-void CFileHandle::Init(std::string classstring) {
+void TrackArray::Init(std::string classstring) {
 	mGetFirstFile(classstring);
 	mGetNextFiles();
 }
-
 
