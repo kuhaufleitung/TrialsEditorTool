@@ -4,8 +4,10 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include "Resource.h"
 
-class TrackArray {
+
+class CTrackArray {
 public:
 	void Init(std::string classstring);
 	void mGetFirstFile(std::string input);
@@ -16,6 +18,8 @@ public:
 
 	std::vector<std::string> TrackID;
 	std::vector<std::wstring> TrackNames;
+
+
 
 private:
 	std::wifstream NameOpen;

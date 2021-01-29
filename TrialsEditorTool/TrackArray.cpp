@@ -1,7 +1,7 @@
 #include "TrackArray.h"
 
 //retrieves first TrackID
-void TrackArray::mGetFirstFile(std::string input) {
+void CTrackArray::mGetFirstFile(std::string input) {
 
 	hFind = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &FileAttributes); //handle keeps index
 
@@ -12,7 +12,7 @@ void TrackArray::mGetFirstFile(std::string input) {
 }
 
 //retrieves Rest of TrackIDs
-void TrackArray::mGetNextFiles() {
+void CTrackArray::mGetNextFiles() {
 	while ((GetLastError() & ERROR_NO_MORE_FILES) == 0) {
 
 		FindNextFileA(hFind, &FileAttributes);
@@ -26,7 +26,7 @@ void TrackArray::mGetNextFiles() {
 
 
 
-void TrackArray::mGetTracknameList(std::string Path) {
+void CTrackArray::mGetTracknameList(std::string Path) {
 	for (int i = 0; i < TrackID.size(); i++) {
 		
 		NameOpen.open(Path + "\\" + TrackID[i] + "\\" + "displayname");
@@ -37,7 +37,7 @@ void TrackArray::mGetTracknameList(std::string Path) {
 }
 /*
 //checks displayname access
-bool TrackArray::mNameFileFound(const char* filename)
+bool CTrackArray::mNameFileFound(const char* filename)
 {
 	std::ifstream infile(filename);
 	return infile.good();
@@ -46,7 +46,7 @@ bool TrackArray::mNameFileFound(const char* filename)
 
 
 //Starts all that shit
-void TrackArray::Init(std::string classstring) {
+void CTrackArray::Init(std::string classstring) {
 	mGetFirstFile(classstring);
 	mGetNextFiles();
 }
