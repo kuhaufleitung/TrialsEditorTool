@@ -13,19 +13,11 @@ std::string CCopy::mGetTemplatePath(std::string input) {
 	return mTemplateFolder;
 }
 
-void CCopy::mUI(HWND hWnd, HINSTANCE hInst) {
+void CCopy::mInitUI(HWND hWnd, HINSTANCE hInst) {
     
     Path.mPathDefaults();
-
     File->Init(Path.mGetEditorPath().c_str());
-
-    //Profile.mGetProfileID(Path.mGetUbiPath());
-    //Profile.mRearrangeID();
-
-    //mGetTemplatePath(Path.mGetEditorPath().c_str());
-
     File->mGetTracknameList(Path.mGetEditorPath());
-
     mSetUI(hWnd, hInst);
 }
 
@@ -42,6 +34,19 @@ void CCopy::mSetUI(HWND hWnd, HINSTANCE hInst) {
     }
     //creates Button
     hButton = CreateWindowExW(WS_EX_WINDOWEDGE, L"button", L"Port to Editor", WS_TABSTOP | WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 20, 630, 400, 40, hWnd, (HMENU)ID_PORTBUTTON, hInst, 0);
+
+}
+
+
+void CCopy::mOnButtonClick(int i) {
+    
+    Profile.mGetProfileID(Path.mGetUbiPath());          //ProfilePath
+    Profile.mRearrangeID();                             //ProfileID for EditorFolder
+    File->Init(Path.mGetEditorPath().c_str());          //retrieves Array of tracks -> trkfile here
+    mGetTemplatePath(Path.mGetEditorPath().c_str());
+
+    //File->TrackID[i];
+
 
 }
 
