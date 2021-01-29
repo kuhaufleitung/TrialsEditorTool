@@ -25,10 +25,11 @@ void CPathHandle::mPathDefaults() {
 std::string CPathHandle::mGetEditorPath() {
 
 	CfgFile.open(PathName);
-
 	FileStream << CfgFile.rdbuf();
 	std::getline(FileStream, EditorPath);
 	CfgFile.close();
+	FileStream.str(std::string()); //clear stringstream
+
 	return EditorPath;
 }
 
@@ -40,6 +41,7 @@ std::string CPathHandle::mGetUbiPath() {
 	FileStream << CfgFile.rdbuf();
 	std::getline(FileStream, UbiPath);
 	std::getline(FileStream, UbiPath); //unpretty but who cares.
+	FileStream.str(std::string()); //clear stringstream
 
 	CfgFile.close();
 	return UbiPath;
