@@ -15,14 +15,12 @@ HINSTANCE hInst;                                // current instance
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
 WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
 HWND hWnd;
-HWND hList;
 
 // Forward declarations of functions included in this code module:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-//INT_PTR CALLBACK    ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam, std::string ListArray);
   
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -32,28 +30,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    ////////////////////////////////////////////////////////
-    //actualProgrammCode
-    HWND hButton;
-
-
-
-    CPathHandle Path;
-    Path.mPathDefaults();
-    
-    TrackArray* File = new TrackArray;
-    File->Init(Path.mGetEditorPath().c_str());
-    
-    CProfileID Profile;
-    Profile.mGetProfileID(Path.mGetUbiPath());
-    Profile.mRearrangeID();
-    
-    CCopy* Copy = new CCopy;
-    Copy->mGetTemplatePath(Path.mGetEditorPath().c_str());
-
-    File->mGetTracknameList(Path.mGetEditorPath());
-    //
-    ////////////////////////////////////////////////////////
     
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -66,20 +42,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
     
+    CCopy* Copy = new CCopy;
+    Copy->mInitUI(hWnd, hInstance);
+
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TRIALSEDITORTOOL));
     
-    ////////////////////////////////////////////////////////
-    //creates Listbox
-    hList = CreateWindowExW(WS_EX_CLIENTEDGE, L"listbox", L"", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL, 20, 20, 400, 600, hWnd, (HMENU)IDC_LISTBOX, 0, 0);
-    //fills Listbox with Track entries
-    for (int i = 0; i < File->TrackNames.size(); i++) {
-        SendMessageW(hList, LB_ADDSTRING, 0, (LPARAM)File->TrackNames[i].c_str());
-    }
-    //creates Button
-    hButton = CreateWindowExW(WS_EX_WINDOWEDGE, L"button", L"Port to Editor", WS_TABSTOP | WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 20, 630, 400, 40, hWnd, (HMENU)ID_PORTBUTTON, hInst, 0);
-    ////////////////////////////////////////////////////////
-
     MSG msg;
 
     // Main message loop:
@@ -178,6 +146,33 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
+            case IDC_LISTBOX:
+            {
+                switch (HIWORD(wParam))
+                {
+                case LBN_SELCHANGE:
+                {
+                                    }
+                }
+                return TRUE;
+            }
+            case ID_PORTBUTTON:
+            case BN_CLICKED:
+            {
+                HWND hwndList = GetDlgItem(hWnd, IDC_LISTBOX);
+
+                // Get selected index.
+                int lbItem = (int)SendMessage(hwndList, LB_GETCURSEL, 0, 0);
+
+                // Get item data.
+                int i = (int)SendMessage(hwndList, LB_GETITEMDATA, lbItem, 0);
+
+
+                CCopy* Port = new CCopy;
+                Port->mOnButtonClick(i);
+                MessageBox(NULL, L"Hello IDEA Developers", L"Dialog Box", MB_OK);
+            }
+                break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
@@ -219,67 +214,3 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     }
     return (INT_PTR)FALSE;
 }
-/*
-INT_PTR CALLBACK ListBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam, std::string ListArray)
-{
-        
-    switch (message)
-    {
-    case WM_INITDIALOG:
-    {
-        // Add items to list. 
-        HWND hwndList = GetDlgItem(hDlg, IDC_LISTBOX);
-        for (int i = 0; i < ListArray.size(); i++)
-        {
-            int pos = (int)SendMessage(hwndList, LB_ADDSTRING, 0,
-                (LPARAM)ListArray[i]);
-            // Set the array index of the player as item data.
-            // This enables us to retrieve the item from the array
-            // even after the items are sorted by the list box.
-            SendMessage(hwndList, LB_SETITEMDATA, pos, (LPARAM)i);
-        }
-        // Set input focus to the list box.
-        SetFocus(hwndList);
-        return TRUE;
-    }
-
-    case WM_COMMAND:
-        switch (LOWORD(wParam))
-        {
-        case IDOK:
-        case IDCANCEL:
-            EndDialog(hDlg, LOWORD(wParam));
-            return TRUE;
-
-        case IDC_LISTBOX:
-        {
-            switch (HIWORD(wParam))
-            {
-            case LBN_SELCHANGE:
-            {
-                HWND hwndList = GetDlgItem(hDlg, IDC_LISTBOX);
-
-                // Get selected index.
-                int lbItem = (int)SendMessage(hwndList, LB_GETCURSEL, 0, 0);
-
-                // Get item data.
-                int i = (int)SendMessage(hwndList, LB_GETITEMDATA, lbItem, 0);
-
-                // Do something with the data from Roster[i]
-                TCHAR buff[MAX_PATH];
-                StringCbPrintf(buff, ARRAYSIZE(buff),
-                    TEXT("Position: %s\nGames played: %d\nGoals: %d"),
-                    Roster[i].achPosition, Roster[i].nGamesPlayed,
-                    Roster[i].nGoalsScored);
-
-                SetDlgItemText(hDlg, IDC_STATISTICS, buff);
-                return TRUE; 
-            }
-            }
-        }
-        return TRUE;
-        }
-    }
-    return FALSE;
-}
-*/
