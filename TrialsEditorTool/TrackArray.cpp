@@ -45,6 +45,14 @@ bool CTrackArray::mNameFileFound(const char* filename)
 */
 
 
+std::string CTrackArray::mGetTimeStamp(int i) {
+	std::string UnixStamp = TrackID[i];
+	UnixStamp.erase(0, 32);
+	UnixStamp.erase(10, 16);
+	return UnixStamp;
+}
+
+
 //Starts all that shit
 void CTrackArray::Init(std::string classstring) {
 	mGetFirstFile(classstring);

@@ -14,6 +14,7 @@ public:
 	void mGetNextFiles();
 
 	void mGetTracknameList(std::string Path);
+	std::string mGetTimeStamp(int i);
 	//bool mNameFileFound(const char* filename);
 
 	std::vector<std::string> TrackID;
