@@ -5,13 +5,14 @@
 
 class CProfileID {
 public:
-	std::string mGetProfileID (std::string UbiString);
+	std::string mGetUbiID (std::string UbiString);
 	void mRearrangeID();
+	std::string mGetProfileID();
 
 private:
+	std::string UbisoftID;
+	std::string SplitID[7];
 	std::string ProfileID;
-	std::string ArrangedBits[7];
-	std::string SortedID;
 
 	HANDLE hFind;
 	WIN32_FIND_DATAA data;
