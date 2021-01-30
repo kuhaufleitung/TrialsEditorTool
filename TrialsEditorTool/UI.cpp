@@ -28,11 +28,13 @@ void CUI::mSetUI(HWND hWnd, HINSTANCE hInst) {
 
 void CUI::mOnButtonClick(int i) {
     
-    Profile.mGetProfileID(Path.mGetUbiPath());          //ProfilePath
+    Profile.mGetUbiID(Path.mGetUbiPath());              //ProfilePath
     Profile.mRearrangeID();                             //ProfileID for EditorFolder
     File->Init(Path.mGetEditorPath().c_str());          //retrieves Array of tracks -> trkfile here
-    Port.mGetTemplatePath(Path.mGetEditorPath().c_str());
-
+    
+    Port.mGetTemplatePath(Path.mGetEditorPath().c_str(), Profile.mGetProfileID());
+    
+    Port.mUseTemplatePath();
     //File->TrackID[i];
 
 
