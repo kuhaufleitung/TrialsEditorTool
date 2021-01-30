@@ -1,32 +1,36 @@
 #include "ProfileID.h"
 
-std::string CProfileID::mGetProfileID (std::string UbiString) {
+std::string CProfileID::mGetUbiID (std::string UbiString) {
 	hFind = FindFirstFileA((LPCSTR)(UbiString + "\\*").c_str(), &data);
 	while ((*data.cFileName == '.') || (*data.cFileName == '..')) {
 		FindNextFileA(hFind, &data);
 	}
 	FindClose(hFind);
-	return ProfileID = data.cFileName;
+	return UbisoftID = data.cFileName;
 	
 }
 
 //Rearranges the ProfileID to suit the EditorFolder format
 void CProfileID::mRearrangeID() {
-	ArrangedBits[0] = ProfileID.substr(0, 8);
-	ArrangedBits[1] = ProfileID.substr(9, 4);
-	ArrangedBits[2] = ProfileID.substr(14, 4);
-	ArrangedBits[3] = ProfileID.substr(19, 4);
-	ArrangedBits[4] = ProfileID.substr(24, 4);
-	ArrangedBits[5] = ProfileID.substr(28, 4);
-	ArrangedBits[6] = ProfileID.substr(32, 4);
+	SplitID[0] = UbisoftID.substr(0, 8);
+	SplitID[1] = UbisoftID.substr(9, 4);
+	SplitID[2] = UbisoftID.substr(14, 4);
+	SplitID[3] = UbisoftID.substr(19, 4);
+	SplitID[4] = UbisoftID.substr(24, 4);
+	SplitID[5] = UbisoftID.substr(28, 4);
+	SplitID[6] = UbisoftID.substr(32, 4);
 	//splitted ID into array
 
 	//sort everything
-	SortedID = ArrangedBits[2];
-	SortedID.append(ArrangedBits[1]);
-	SortedID.append(ArrangedBits[0]);
-	SortedID.append(ArrangedBits[6]);
-	SortedID.append(ArrangedBits[5]);
-	SortedID.append(ArrangedBits[4]);
-	SortedID.append(ArrangedBits[3]);
+	ProfileID = SplitID[2];
+	ProfileID.append(SplitID[1]);
+	ProfileID.append(SplitID[0]);
+	ProfileID.append(SplitID[6]);
+	ProfileID.append(SplitID[5]);
+	ProfileID.append(SplitID[4]);
+	ProfileID.append(SplitID[3]);
 	}
+
+std::string CProfileID::mGetProfileID() {
+	return ProfileID;
+}
