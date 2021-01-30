@@ -46,3 +46,12 @@ std::string CPathHandle::mGetUbiPath() {
 	CfgFile.close();
 	return UbiPath;
 }
+
+void CPathHandle::mUbiSavegamePath() {
+
+}
+/*
+CPathHandle::CPathHandle() {
+	mPathDefaults();
+}
+*/
