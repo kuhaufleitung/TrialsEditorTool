@@ -30,7 +30,7 @@ void CPathHandle::mPathDefaults() {
 
 
 //reads file to EditorPath sstream and returns its content
-void CPathHandle::mSetEditorPath() {
+void CPathHandle::mSetEditorPathVariable() {
 
 	std::stringstream FileStream;
 
