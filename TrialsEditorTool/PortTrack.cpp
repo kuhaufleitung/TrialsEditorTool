@@ -17,7 +17,33 @@ std::string CPort::mUseTemplatePath() {
 	return TemplateFolder;
 }
 
-//446ebf93f535b37276d4afbbbfd38a882642e85d02-0-0000000000000
+//UbiID UNIXTIMESTAMP -0-0000000000000 (no spaces)
 void CPort::mCreateFolder(std::string EditorPath, std::string ProfileID, std::string Unix) {
-	CreateDirectoryA((LPCSTR) (EditorPath + "\\" + ProfileID + Unix).c_str(), sec);
+
+
+	NewTrackFolder = EditorPath + "\\" + ProfileID + Unix + "-0-0000000000000"; //for copying process
+
+	CreateDirectoryA((LPCSTR) NewTrackFolder.c_str(), sec);
+}
+
+
+void CPort::mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID) {
+	
+	//Copy displayname
+	std::string ExistingTrackPath = EditorPath + "\\" + ExistingTrackID;
+	
+	BOOL failD = CopyFileA((LPCSTR)(ExistingTrackPath + "\\displayname").c_str(), (LPCSTR)(NewTrackFolder + "\\displayname").c_str(), 0);
+	if (!failD) {
+		DWORD error = GetLastError();
+	}
+
+	
+	//Copy metadata.mda
+	std::string ExistingTemplatePath = EditorPath + "\\" + TemplateFolder;
+
+	BOOL failM = CopyFileA((LPCSTR)(ExistingTemplatePath + "\\metadata.mda").c_str(), (LPCSTR)(NewTrackFolder + "\\metadata.mda").c_str(), 0);
+	if (!failM) {
+		DWORD error = GetLastError();
+	}
+
 }
