@@ -30,11 +30,15 @@ void CUI::mOnButtonClick(int i) {
     
     Profile.mGetUbiID(Path.mGetUbiPath());              //ProfilePath
     Profile.mRearrangeID();                             //ProfileID for EditorFolder
-    File->Init(Path.mGetEditorPath().c_str());          //retrieves Array of tracks -> trkfile here
+    File->Init(Path.mGetEditorPath());                  //retrieves Array of tracks -> trkfile here
     
-    Port.mGetTemplatePath(Path.mGetEditorPath().c_str(), Profile.mGetProfileID());
+    Port.mGetTemplatePath(Path.mGetEditorPath(), Profile.mGetProfileID());
     
-    Port.mUseTemplatePath();
+    //create Editor Folder
+    Port.mCreateFolder(Path.mGetEditorPath());
+
+    //Port.mUseTemplatePath();
+
     //File->TrackID[i];
 
 
