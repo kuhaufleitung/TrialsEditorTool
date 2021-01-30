@@ -4,7 +4,8 @@
 
 class CPort {
 public:
-	std::string mGetTemplatePath(std::string input);
+	std::string mGetTemplatePath(std::string input, std::string ProfileID);
+	std::string mUseTemplatePath();
 private:
 
 	std::string TemplateFolder;
