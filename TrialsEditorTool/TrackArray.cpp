@@ -11,6 +11,8 @@ void CTrackArray::mGetFirstFile(std::string input) {
 	TrackID.push_back(FileAttributes.cFileName); //writes Path into a Array
 }
 
+
+
 //retrieves Rest of TrackIDs
 void CTrackArray::mGetNextFiles() {
 	while ((GetLastError() & ERROR_NO_MORE_FILES) == 0) {
@@ -45,12 +47,14 @@ bool CTrackArray::mNameFileFound(const char* filename)
 */
 
 
+
 std::string CTrackArray::mGetTimeStamp(int i) {
 	std::string UnixStamp = TrackID[i];
 	UnixStamp.erase(0, 32);
 	UnixStamp.erase(10, 16);
 	return UnixStamp;
 }
+
 
 
 //Starts all that shit

@@ -10,6 +10,8 @@ std::string CProfileID::mGetUbiID (std::string UbiString) {
 	
 }
 
+
+
 //Rearranges the ProfileID to suit the EditorFolder format
 void CProfileID::mRearrangeID() {
 	SplitID[0] = UbisoftID.substr(0, 8);
@@ -30,6 +32,8 @@ void CProfileID::mRearrangeID() {
 	ProfileID.append(SplitID[4]);
 	ProfileID.append(SplitID[3]);
 	}
+
+
 
 std::string CProfileID::mGetProfileID() {
 	return ProfileID;

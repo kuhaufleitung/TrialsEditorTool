@@ -9,6 +9,7 @@ bool CPathHandle::mCfgFound(const char* filename)
 }
 
 
+
 //opens cfg and writes StdPath if not created
 void CPathHandle::mPathDefaults() {
 
@@ -19,6 +20,7 @@ void CPathHandle::mPathDefaults() {
 	}
 	CfgFile.close();
 }
+
 
 
 //reads file to EditorPath sstream and returns its content
@@ -32,6 +34,8 @@ void CPathHandle::mSetEditorPath() {
 	CfgFile.close();
 
 }
+
+
 
 //reads file to UbiPath sstream and returns its content
 std::string CPathHandle::mGetUbiPath() {
