@@ -48,6 +48,7 @@ bool CTrackArray::mNameFileFound(const char* filename)
 
 
 
+//extracts the UnixTimeStamp from the TrackDirectory (hexadem)
 std::string CTrackArray::mGetTimeStamp(int i) {
 	std::string UnixStamp = TrackID[i];
 	UnixStamp.erase(0, 32);
