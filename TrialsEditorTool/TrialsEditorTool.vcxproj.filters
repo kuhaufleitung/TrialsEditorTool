@@ -30,10 +30,13 @@
     <ClInclude Include="ProfileID.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CopyProcess.h">
+    <ClInclude Include="TrackArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TrackArray.h">
+    <ClInclude Include="UI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PortTrack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,10 +50,13 @@
     <ClCompile Include="ProfileID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CopyProcess.cpp">
+    <ClCompile Include="TrackArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TrackArray.cpp">
+    <ClCompile Include="UI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PortTrack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
