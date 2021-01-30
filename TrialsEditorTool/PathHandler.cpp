@@ -22,7 +22,7 @@ void CPathHandle::mPathDefaults() {
 
 
 //reads file to EditorPath sstream and returns its content
-std::string CPathHandle::mGetEditorPath() {
+void CPathHandle::mSetEditorPath() {
 
 	std::stringstream FileStream;
 
@@ -31,7 +31,6 @@ std::string CPathHandle::mGetEditorPath() {
 	std::getline(FileStream, EditorPath);
 	CfgFile.close();
 
-	return EditorPath;
 }
 
 //reads file to UbiPath sstream and returns its content
@@ -47,4 +46,8 @@ std::string CPathHandle::mGetUbiPath() {
 
 	CfgFile.close();
 	return UbiPath;
+}
+
+std::string CPathHandle::mUseEditorPath() {
+	return EditorPath;
 }
