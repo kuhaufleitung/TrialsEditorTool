@@ -3,9 +3,6 @@
 
 #include "framework.h"
 #include "Resource.h"
-#include "PathHandler.h"
-#include "TrackArray.h"
-#include "ProfileID.h"
 #include "UI.h"
 
 #define MAX_LOADSTRING 100
