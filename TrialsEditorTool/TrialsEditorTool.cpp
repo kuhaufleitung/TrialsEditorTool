@@ -143,16 +143,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
-            case IDC_LISTBOX:
-            {
-                switch (HIWORD(wParam))
-                {
-                case LBN_SELCHANGE:
-                {
-                                    }
-                }
-                return TRUE;
-            }
+            
             case ID_PORTBUTTON:
             case BN_CLICKED:
             {
@@ -161,13 +152,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 // Get selected index.
                 int lbItem = (int)SendMessage(hwndList, LB_GETCURSEL, 0, 0);
 
-                // Get item data.
-                int i = (int)SendMessage(hwndList, LB_GETITEMDATA, lbItem, 0);
-
-
+                
                 CUI* Port = new CUI;
-                Port->mOnButtonClick(i);
-                MessageBox(NULL, L"Hello IDEA Developers", L"Dialog Box", MB_OK);
+                
+                Port->mOnButtonClick(lbItem);
+                MessageBox(NULL, L"Done", L"Process", MB_OK);
             }
                 break;
             default:
