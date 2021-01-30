@@ -17,7 +17,6 @@ private:
 	std::string const PathName = "Path.cfg";
 	std::string EditorPath;
 	std::string UbiPath;
-	std::stringstream FileStream;
 
 	char* docdir = getenv("USERPROFILE"); //path to Documents folder
 };
