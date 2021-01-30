@@ -6,7 +6,7 @@
 #include "PathHandler.h"
 #include "TrackArray.h"
 #include "ProfileID.h"
-#include "UI.h"
+#include "CopyProcess.h"
 
 #define MAX_LOADSTRING 100
 
@@ -42,7 +42,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
     
-    CUI* Copy = new CUI;
+    CCopy* Copy = new CCopy;
     Copy->mInitUI(hWnd, hInstance);
 
 
@@ -168,7 +168,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 int i = (int)SendMessage(hwndList, LB_GETITEMDATA, lbItem, 0);
 
 
-                CUI* Port = new CUI;
+                CCopy* Port = new CCopy;
                 Port->mOnButtonClick(i);
                 MessageBox(NULL, L"Hello IDEA Developers", L"Dialog Box", MB_OK);
             }

@@ -7,6 +7,7 @@
 class CPathHandle {
 public:
 	void mPathDefaults();
+	void mUbiSavegamePath();
 	bool mCfgFound(const char* filename);
 
 	std::string mGetEditorPath();
