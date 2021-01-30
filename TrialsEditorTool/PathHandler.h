@@ -9,7 +9,8 @@ public:
 	void mPathDefaults();
 	bool mCfgFound(const char* filename);
 
-	std::string mGetEditorPath();
+	void mSetEditorPath();
+	std::string mUseEditorPath();
 	std::string mGetUbiPath();
 
 private:
