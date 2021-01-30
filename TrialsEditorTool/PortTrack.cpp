@@ -1,5 +1,6 @@
 #include "PortTrack.h"
 
+
 std::string CPort::mGetTemplatePath(std::string input, std::string ProfileID) {
 
 	hFindTemplate = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &data);
@@ -13,9 +14,13 @@ std::string CPort::mGetTemplatePath(std::string input, std::string ProfileID) {
 	return TemplateFolder;
 }
 
+
+
 std::string CPort::mUseTemplatePath() {
 	return TemplateFolder;
 }
+
+
 
 //UbiID UNIXTIMESTAMP -0-0000000000000 (no spaces)
 void CPort::mCreateFolder(std::string EditorPath, std::string ProfileID, std::string Unix) {
@@ -25,6 +30,8 @@ void CPort::mCreateFolder(std::string EditorPath, std::string ProfileID, std::st
 
 	CreateDirectoryA((LPCSTR) NewTrackFolder.c_str(), sec);
 }
+
+
 
 
 void CPort::mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID) {
