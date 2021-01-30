@@ -7,7 +7,9 @@ public:
 	std::string mGetTemplatePath(std::string input);
 private:
 
-	HWND hFindTemplate;
+	std::string TemplateFolder;
+
+	HANDLE hFindTemplate;
 	WIN32_FIND_DATAA data;
 
 };

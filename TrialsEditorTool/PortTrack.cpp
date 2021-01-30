@@ -3,12 +3,12 @@
 std::string CPort::mGetTemplatePath(std::string input) {
 
 	hFindTemplate = FindFirstFileA((LPCSTR)(input + "//*").c_str(), &data);
-	mTemplateFolder = data.cFileName;
+	TemplateFolder = data.cFileName;
 
-	while (mTemplateFolder.find("0000000000000") == std::string::npos) {
-		FindNextFileA(hFindTemp, &data);
-		mTemplateFolder = data.cFileName;
+	while (TemplateFolder.find("0000000000000") == std::string::npos) {
+		FindNextFileA(hFindTemplate, &data);
+		TemplateFolder = data.cFileName;
 	}
-	FindClose(hFindTemp);
-	return mTemplateFolder;
+	FindClose(hFindTemplate);
+	return TemplateFolder;
 }
