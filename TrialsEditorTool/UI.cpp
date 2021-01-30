@@ -4,8 +4,9 @@
 void CUI::mInitUI(HWND hWnd, HINSTANCE hInst) {
     
     Path.mPathDefaults();
-    File->Init(Path.mGetEditorPath().c_str());
-    File->mGetTracknameList(Path.mGetEditorPath());
+    Path.mSetEditorPath();
+    File->Init(Path.mUseEditorPath().c_str());
+    File->mGetTracknameList(Path.mUseEditorPath());
     mSetUI(hWnd, hInst);
 }
 
@@ -26,20 +27,19 @@ void CUI::mSetUI(HWND hWnd, HINSTANCE hInst) {
 }
 
 
+
 void CUI::mOnButtonClick(int i) {
     
     Profile.mGetUbiID(Path.mGetUbiPath());              //ProfilePath
     Profile.mRearrangeID();                             //ProfileID for EditorFolder
-    File->Init(Path.mGetEditorPath());                  //retrieves Array of tracks -> trkfile here
+    Path.mSetEditorPath();                              //Set Path to EditorTracks
+    File->Init(Path.mUseEditorPath());                  //Retrieves Array of tracks -> trkfile here
     
-    Port.mGetTemplatePath(Path.mGetEditorPath(), Profile.mGetProfileID());
+    Port.mGetTemplatePath(Path.mUseEditorPath(), Profile.mGetProfileID());
     
     //create Editor Folder
-    Port.mCreateFolder(Path.mGetEditorPath());
-
-    //Port.mUseTemplatePath();
-
-    //File->TrackID[i];
+    Port.mCreateFolder(Path.mUseEditorPath(), Profile.mGetProfileID(), File->mGetTimeStamp(i));
+    Port.mCopyNameMDA(Path.mUseEditorPath(), File->TrackID[i]);
 
 
 }

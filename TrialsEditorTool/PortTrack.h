@@ -9,6 +9,7 @@ public:
 
 	void mCreateFolder(std::string EditorPath, std::string ProfileID, std::string Unix);
 	void mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID);
+	void mCopyTrkfile();
 
 private:
 
