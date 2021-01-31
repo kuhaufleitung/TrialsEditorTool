@@ -20,7 +20,10 @@ void CUI::mInitUI(HWND hWnd, HINSTANCE hInst) {
 
 
 void CUI::mSetUI(HWND hWnd, HINSTANCE hInst) {
-    
+
+    HFONT myFont = (HFONT)GetStockObject(DEFAULT_GUI_FONT); //get default Tahoma font
+
+
     //creates Listbox
     hList = CreateWindowExW(WS_EX_CLIENTEDGE, L"listbox", L"", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL, 20, 20, 400, 600, hWnd, (HMENU)IDC_LISTBOX, 0, 0);
     
@@ -30,6 +33,10 @@ void CUI::mSetUI(HWND hWnd, HINSTANCE hInst) {
     }
     //creates Button
     hButton = CreateWindowExW(WS_EX_WINDOWEDGE, L"button", L"Port to Editor", WS_TABSTOP | WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 20, 630, 400, 40, hWnd, (HMENU)ID_PORTBUTTON, hInst, 0);
+
+    //set default Font
+    SendMessage(hList, WM_SETFONT, WPARAM(myFont), TRUE);
+    SendMessage(hButton, WM_SETFONT, WPARAM(myFont), TRUE);
 
 }
 
