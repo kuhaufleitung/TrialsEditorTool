@@ -15,3 +15,9 @@ There has to be AT LEAST ONE track created in the Editor by yourself.
 
 Please check the created config file and its path to both directories.
 The config is located at the same directory where the TrialsEditorTool.exe is located at.
+
+# TODO
+
+- Sorting the tracklist
+- better looking font
+- Rising/Evo Support
