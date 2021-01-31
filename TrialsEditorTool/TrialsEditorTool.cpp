@@ -156,7 +156,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 CUI* Port = new CUI;
                 
                 Port->mOnButtonClick(lbItem);
-                MessageBox(NULL, L"Done", L"Process", MB_OK);
+                MessageBox(NULL, L"Done", L"Porting Process", MB_OK);
             }
                 break;
             default:
