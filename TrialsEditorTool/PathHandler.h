@@ -7,6 +7,7 @@
 
 class CPathHandle {
 public:
+
 	bool mPathDefaults();
 	bool mCfgFound(const char* filename);
 
@@ -17,7 +18,11 @@ public:
 	std::string mUseUbiPath();
 
 	bool isConfigFileCreated;
+
+
+
 private:
+
 	std::fstream CfgFile;
 	std::string const PathName = "Path.cfg";
 	std::string EditorPath;

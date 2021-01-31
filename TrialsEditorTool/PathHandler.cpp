@@ -25,7 +25,8 @@ bool CPathHandle::mPathDefaults() {
 		CfgFile << "//FirstPath looks like this structure and points to your Trials SavedGames Directory:\n//C:\\Users\\*yourname*\\Documents\\TrialsFusion\\SavedGames" << std::endl << std::endl
 				<< "//SecondPath looks like this structure and points to your Ubisoft Game Launcher Directory, NOT your game:\n//C:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher" << std::endl << std::endl
 				<< "//There have to be NO backslashes at the end!" << std::endl
-				<< "//This file gets auto generated when it isnt available in the program directory.";
+				<< "//This file gets auto generated when it isnt available in the program directory." << std::endl << std::endl
+				<< "//TrialsEditorTool by kuhaufleitung";
 		
 		CfgFile.close();
 	}
