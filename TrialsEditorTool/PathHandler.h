@@ -10,8 +10,10 @@ public:
 	bool mCfgFound(const char* filename);
 
 	void mSetEditorPathVariable();
+	void mSetUbiPathVariable();
+
 	std::string mUseEditorPath();
-	std::string mGetUbiPath();
+	std::string mUseUbiPath();
 
 private:
 	std::fstream CfgFile;
