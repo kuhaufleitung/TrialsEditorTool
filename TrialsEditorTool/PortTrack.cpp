@@ -34,7 +34,7 @@ void CPort::mCreateFolder(std::string EditorPath, std::string ProfileID, std::st
 
 
 //copies requiered displayname file and metadata.mda to the created folder
-void CPort::mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID) {
+void CPort::mCopyNameMDAtrk(std::string EditorPath, std::string ExistingTrackID) {
 	
 	//Copy displayname
 	std::string ExistingTrackPath = EditorPath + "\\" + ExistingTrackID;
@@ -52,11 +52,28 @@ void CPort::mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID) {
 	if (!failM) {
 		DWORD error = GetLastError();
 	}
-
+	
+	//Copy TemplateTrack
+	failM = CopyFileA((LPCSTR)(ExistingTemplatePath + "\\track.trk").c_str(), (LPCSTR)(NewTrackFolder + "\\track.trk").c_str(), 0);
+	if (!failM) {
+		DWORD error = GetLastError();
+	}
 }
 
 //copies original track to destination and replaces first few bytes from TemplateTrack
 //search for:    4C 5A 4D 41 5D 00 00 02 00
-void CPort::mCopyTrkfile() {
+void CPort::mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID) {
+	
+	OriginalTrack.open(EditorPath + "\\" + ExistingTrackID + "\\track.trk", std::fstream::binary);
+	NewTrack.open(NewTrackFolder + "\\track.trk", std::fstream::binary);
 
+		std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(OriginalTrack), {});
+	//spaces will be ignored from reading
+	//OriginalTrack.unsetf(std::fstream::skipws);
+	
+		std::copy(std::istreambuf_iterator<char>(OriginalTrack), std::istreambuf_iterator<char>(), std::ostreambuf_iterator<char>(NewTrack));
+	
+	OriginalTrack.close();
+	NewTrack.close();
+	
 }

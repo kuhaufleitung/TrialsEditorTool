@@ -1,5 +1,8 @@
 #pragma once
 #include <string>
+#include <vector>
+#include <fstream>
+#include <sstream>
 #include <Windows.h>
 
 class CPort {
@@ -8,8 +11,8 @@ public:
 	std::string mUseTemplatePath();
 
 	void mCreateFolder(std::string EditorPath, std::string ProfileID, std::string Unix);
-	void mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID);
-	void mCopyTrkfile();
+	void mCopyNameMDAtrk(std::string EditorPath, std::string ExistingTrackID);
+	void mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID);
 
 private:
 
@@ -19,4 +22,7 @@ private:
 	HANDLE hFindTemplate;
 	WIN32_FIND_DATAA data;
 	LPSECURITY_ATTRIBUTES sec;
+
+	std::ifstream OriginalTrack;
+	std::ofstream NewTrack;
 };
