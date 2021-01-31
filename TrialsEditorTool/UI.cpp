@@ -4,6 +4,13 @@
 void CUI::mInitUI(HWND hWnd, HINSTANCE hInst) {
     
     Path.mPathDefaults();
+
+    //check if first program start
+    if (Path.isConfigFileCreated == false) {
+        MessageBox(NULL, L"If you can't see any tracks, check your Path.cfg.\nIt has been created in the same folder.", L"First Start", MB_OK);
+
+    }
+
     Path.mSetEditorPathVariable();
     File->Init(Path.mUseEditorPath().c_str());
     File->mGetTracknameList(Path.mUseEditorPath());
@@ -42,7 +49,7 @@ void CUI::mOnButtonClick(int i) {
     //creates Editor Folder
     Port.mCreateFolder(Path.mUseEditorPath(), Profile.mGetProfileID(), File->mGetTimeStamp(i));
     //copies necessary data to new Folder
-    Port.mCopyNameMDAtrk(Path.mUseEditorPath(), File->TrackID[i]);
+    Port.mCopyNameMDA(Path.mUseEditorPath(), File->TrackID[i]);
     //copies modified Trackfile to new Folder
     Port.mModifyTrkfile(Path.mUseEditorPath(), File->TrackID[i]);
 
