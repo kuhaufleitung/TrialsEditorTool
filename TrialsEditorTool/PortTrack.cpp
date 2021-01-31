@@ -61,7 +61,6 @@ void CPort::mCopyNameMDAtrk(std::string EditorPath, std::string ExistingTrackID)
 }
 
 //copies original track to destination and replaces first few bytes from TemplateTrack
-//search for:    4C 5A 4D 41 5D 00 00 02 00
 void CPort::mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID) {
 	
 	OriginalTrack.open(EditorPath + "\\" + ExistingTrackID + "\\track.trk", std::fstream::binary);
@@ -73,7 +72,7 @@ void CPort::mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID) 
 	std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(OriginalTrack), {});
 	
 	NewTrack.seekp(60);
-	NewTrack.write((char*)&buffer[60], buffer.size());
+	NewTrack.write((char*)&buffer[60], buffer.size() - 60);
 
 	OriginalTrack.close();
 	NewTrack.close();
