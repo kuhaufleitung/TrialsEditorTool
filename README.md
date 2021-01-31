@@ -19,7 +19,6 @@ The config is located at the same directory where the TrialsEditorTool.exe is lo
 # TODO
 
 - Sorting the tracklist
-- better looking font
 - Rising/Evo Support
 
 
