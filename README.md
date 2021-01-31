@@ -24,5 +24,9 @@ The config is located at the same directory where the TrialsEditorTool.exe is lo
 - Rising/Evo Support
 - Refresh tracklist
 
+# Current Issues
+
+- When exe placed into "Program Files" Folder, it needs admin privileges to fetch the tracks.
+
 # Misc
 <div>Icons made by <a href="https://www.flaticon.com/authors/photo3idea-studio" title="photo3idea_studio">photo3idea_studio</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
