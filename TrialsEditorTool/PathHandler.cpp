@@ -44,7 +44,7 @@ void CPathHandle::mSetEditorPathVariable() {
 
 
 //reads file to UbiPath sstream and returns its content
-std::string CPathHandle::mGetUbiPath() {
+void CPathHandle::mSetUbiPathVariable() {
 
 	std::stringstream FileStream;
 
@@ -57,9 +57,12 @@ std::string CPathHandle::mGetUbiPath() {
 	//we need the savegames folder for the ID
 	UbiPath.append("\\savegames");
 	CfgFile.close();
-	return UbiPath;
 }
 
 std::string CPathHandle::mUseEditorPath() {
 	return EditorPath;
+}
+
+std::string CPathHandle::mUseUbiPath() {
+	return UbiPath;
 }
