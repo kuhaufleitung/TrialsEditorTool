@@ -67,12 +67,13 @@ void CPort::mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID) 
 	OriginalTrack.open(EditorPath + "\\" + ExistingTrackID + "\\track.trk", std::fstream::binary);
 	NewTrack.open(NewTrackFolder + "\\track.trk", std::fstream::binary || std::fstream::app);
 
-	std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(OriginalTrack), {});
 	//spaces will be ignored from reading
-	//OriginalTrack.unsetf(std::fstream::skipws);
+	OriginalTrack.unsetf(std::fstream::skipws);
+
+	std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(OriginalTrack), {});
 	
-	//std::copy(std::istreambuf_iterator<char>(OriginalTrack), std::istreambuf_iterator<char>(), std::ostreambuf_iterator<char>(NewTrack));
-	NewTrack.write((char*)&buffer[0], buffer.size());
+	NewTrack.seekp(60);
+	NewTrack.write((char*)&buffer[60], buffer.size());
 
 	OriginalTrack.close();
 	NewTrack.close();
