@@ -157,6 +157,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 
                 Port->mOnButtonClick(lbItem);
                 MessageBox(NULL, L"Done", L"Porting Process", MB_OK);
+
+                delete Port;
             }
                 break;
             default:
