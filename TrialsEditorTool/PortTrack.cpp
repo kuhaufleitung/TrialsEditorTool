@@ -53,11 +53,6 @@ void CPort::mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID) {
 		DWORD error = GetLastError();
 	}
 	
-	//Copy TemplateTrack
-	failM = CopyFileA((LPCSTR)(ExistingTemplatePath + "\\track.trk").c_str(), (LPCSTR)(NewTrackFolder + "\\track.trk").c_str(), 0);
-	if (!failM) {
-		DWORD error = GetLastError();
-	}
 }
 
 //copies original track to destination and replaces first few bytes from TemplateTrack

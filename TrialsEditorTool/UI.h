@@ -10,10 +10,12 @@
 
 class CUI {
 public:
+
 	void mInitUI(HWND hWnd, HINSTANCE hInst);
 	void mSetUI(HWND hWnd, HINSTANCE hInst);
 	void mOnButtonClick(int i);
 	
+
 
 private:
 

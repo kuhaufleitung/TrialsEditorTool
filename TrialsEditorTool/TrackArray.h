@@ -9,6 +9,7 @@
 
 class CTrackArray {
 public:
+
 	void Init(std::string classstring);
 	void mGetFirstFile(std::string input);
 	void mGetNextFiles();
@@ -22,7 +23,8 @@ public:
 
 
 
-private:
+	private:
+
 	std::wifstream NameOpen;
 	std::wstring buffer;
 
