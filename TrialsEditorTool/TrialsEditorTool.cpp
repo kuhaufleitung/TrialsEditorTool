@@ -106,6 +106,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
        CW_USEDEFAULT, CW_USEDEFAULT, 460, 740, nullptr, nullptr, hInstance, nullptr);
 
+   SetWindowTextW(hWnd, L"TrialsEditorTool by kuhaufleitung"); //WndTitle
+
    if (!hWnd)
    {
       return FALSE;
