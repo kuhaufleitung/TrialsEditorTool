@@ -1,6 +1,6 @@
 #include "PortTrack.h"
 
-
+//gets path of one own created track
 std::string CPort::mGetTemplatePath(std::string input, std::string ProfileID) {
 
 	hFindTemplate = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &data);
@@ -34,7 +34,7 @@ void CPort::mCreateFolder(std::string EditorPath, std::string ProfileID, std::st
 
 
 //copies requiered displayname file and metadata.mda to the created folder
-void CPort::mCopyNameMDAtrk(std::string EditorPath, std::string ExistingTrackID) {
+void CPort::mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID) {
 	
 	//Copy displayname
 	std::string ExistingTrackPath = EditorPath + "\\" + ExistingTrackID;
@@ -63,17 +63,30 @@ void CPort::mCopyNameMDAtrk(std::string EditorPath, std::string ExistingTrackID)
 //copies original track to destination and replaces first few bytes from TemplateTrack
 void CPort::mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID) {
 	
+	TemplateTrack.open(EditorPath + "\\" + TemplateFolder + "\\track.trk", std::fstream::binary);
 	OriginalTrack.open(EditorPath + "\\" + ExistingTrackID + "\\track.trk", std::fstream::binary);
-	NewTrack.open(NewTrackFolder + "\\track.trk", std::fstream::binary || std::fstream::app);
+	NewTrack.open(NewTrackFolder + "\\track.trk", std::fstream::binary);
+
+
 
 	//spaces will be ignored from reading
+	TemplateTrack.unsetf(std::fstream::skipws);
 	OriginalTrack.unsetf(std::fstream::skipws);
-
-	std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(OriginalTrack), {});
 	
-	NewTrack.seekp(60);
-	NewTrack.write((char*)&buffer[60], buffer.size() - 60);
+	//fill vectors with TrackData in Binary
+	std::vector<unsigned char> bufferT(std::istreambuf_iterator<char>(TemplateTrack), {});
+	std::vector<unsigned char> bufferO(std::istreambuf_iterator<char>(OriginalTrack), {});
+	
+	//Template track only needs content until 4C 5A 4D 41 5D -> pos = 59
+	NewTrack.write((char*)&bufferT[0], 58);
 
+	//Existing track only needs content after 4C 5A 4D 41 5D -> pos = 59
+	NewTrack.seekp(58);	//set cursor pos
+	NewTrack.write((char*)&bufferO[58], bufferO.size() - 58);
+
+
+
+	TemplateTrack.close();
 	OriginalTrack.close();
 	NewTrack.close();
 	
