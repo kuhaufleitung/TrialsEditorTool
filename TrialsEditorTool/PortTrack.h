@@ -11,7 +11,7 @@ public:
 	std::string mUseTemplatePath();
 
 	void mCreateFolder(std::string EditorPath, std::string ProfileID, std::string Unix);
-	void mCopyNameMDAtrk(std::string EditorPath, std::string ExistingTrackID);
+	void mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID);
 	void mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID);
 
 private:
@@ -24,5 +24,6 @@ private:
 	LPSECURITY_ATTRIBUTES sec;
 
 	std::ifstream OriginalTrack;
+	std::ifstream TemplateTrack;
 	std::ofstream NewTrack;
 };
