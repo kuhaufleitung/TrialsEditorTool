@@ -3,10 +3,11 @@
 #include <fstream>
 #include <sstream>
 #include <filesystem>
+#include <windows.h>
 
 class CPathHandle {
 public:
-	void mPathDefaults();
+	bool mPathDefaults();
 	bool mCfgFound(const char* filename);
 
 	void mSetEditorPathVariable();
@@ -15,6 +16,7 @@ public:
 	std::string mUseEditorPath();
 	std::string mUseUbiPath();
 
+	bool isConfigFileCreated;
 private:
 	std::fstream CfgFile;
 	std::string const PathName = "Path.cfg";
