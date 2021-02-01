@@ -23,7 +23,7 @@ public:
 
 
 
-	private:
+private:
 
 	std::wifstream NameOpen;
 	std::wstring buffer;
