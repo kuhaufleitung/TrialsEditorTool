@@ -55,6 +55,8 @@ void CPort::mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID) {
 	
 }
 
+
+
 //copies original track to destination and replaces first few bytes from TemplateTrack
 void CPort::mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID) {
 	
