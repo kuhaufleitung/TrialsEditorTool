@@ -6,17 +6,12 @@
 class CProfileID {
 public:
 
-	std::string mGetUbiID (std::string UbiString);
-	void mRearrangeID();
-	std::string mGetProfileID();
-
-
+	void mSetUbiID (std::string EditorPath);
+	std::string mUseUbiID();
 
 private:
 
 	std::string UbisoftID;
-	std::string SplitID[7];
-	std::string ProfileID;
 
 	HANDLE hFind;
 	WIN32_FIND_DATAA data;

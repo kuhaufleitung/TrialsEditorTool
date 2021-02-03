@@ -45,16 +45,14 @@ void CUI::mSetUI(HWND hWnd, HINSTANCE hInst) {
 void CUI::mOnButtonClick(int i) {
     
     Path.mSetEditorPathVariable();                      //Set Path to EditorTracks
-    Path.mSetUbiPathVariable();
 
-    Profile.mGetUbiID(Path.mUseUbiPath());              //ProfilePath
-    Profile.mRearrangeID();                             //ProfileID for EditorFolder
+    Profile.mSetUbiID(Path.mUseEditorPath());           //ProfileID
     File->Init(Path.mUseEditorPath());                  //Retrieves Array of tracks -> trkfile here
     
-    Port.mGetTemplatePath(Path.mUseEditorPath(), Profile.mGetProfileID());
+    Port.mGetTemplatePath(Path.mUseEditorPath(), Profile.mUseUbiID());
     
     //creates Editor Folder
-    Port.mCreateFolder(Path.mUseEditorPath(), Profile.mGetProfileID(), File->mGetTimeStamp(i));
+    Port.mCreateFolder(Path.mUseEditorPath(), Profile.mUseUbiID(), File->mGetTimeStamp(i));
     //copies necessary data to new Folder
     Port.mCopyNameMDA(Path.mUseEditorPath(), File->TrackID[i]);
     //copies modified Trackfile to new Folder
