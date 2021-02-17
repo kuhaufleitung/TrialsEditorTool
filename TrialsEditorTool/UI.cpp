@@ -44,6 +44,11 @@ void CUI::mSetUI(HWND hWnd, HINSTANCE hInst) {
 
 void CUI::mOnButtonClick(int i) {
     
+    if (i == -1) {
+        MessageBox(NULL, L"No track was selected!", L"Error!", MB_OK | MB_ICONERROR);
+        return;
+    }
+
     Path.mSetEditorPathVariable();                      //Set Path to EditorTracks
 
     Profile.mSetUbiID(Path.mUseEditorPath());           //ProfileID
@@ -57,6 +62,8 @@ void CUI::mOnButtonClick(int i) {
     Port.mCopyNameMDA(Path.mUseEditorPath(), File->TrackID[i]);
     //copies modified Trackfile to new Folder
     Port.mModifyTrkfile(Path.mUseEditorPath(), File->TrackID[i]);
+
+    MessageBox(NULL, L"Done", L"Porting Process", MB_OK);
 
 }
 
