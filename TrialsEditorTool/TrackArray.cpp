@@ -1,42 +1,53 @@
 #include "TrackArray.h"
 
 //retrieves first TrackID
-void CTrackArray::mGetFirstFile(std::string input) {
+void CTrackArray::mGetFirstTrack(std::string input) {
 
 	hFind = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &FileAttributes); //handle keeps index
 
 	while ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '.') || (*FileAttributes.cFileName == '..')) {
 		FindNextFileA(hFind, &FileAttributes);
 	}
-	TrackID.push_back(FileAttributes.cFileName); //writes Path into a Array
+	
+	std::wstring buffer;
+
+	//get the Trackname from that ID
+	NameOpen.open(input + "\\" + FileAttributes.cFileName + "\\" + "displayname");
+	std::getline(NameOpen, buffer);
+	NameOpen.close();
+
+	//writes both Name and Path into an array
+	TrackAttributes.push_back({ buffer, FileAttributes.cFileName });
 }
 
 
 
 //retrieves Rest of TrackIDs
-void CTrackArray::mGetNextFiles() {
+void CTrackArray::mGetNextTracks(std::string input) {
+	
+	std::wstring buffer;
+
 	while ((GetLastError() & ERROR_NO_MORE_FILES) == 0) {
 
 		FindNextFileA(hFind, &FileAttributes);
 
 		if ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '.')){
-			TrackID.push_back(FileAttributes.cFileName); //writes Path into a Array
+			
+			buffer = L"";
+
+			//get the Trackname from that ID
+			NameOpen.open(input + "\\" + FileAttributes.cFileName + "\\" + "displayname");
+			std::getline(NameOpen, buffer);
+			NameOpen.close();
+
+			//writes both Name and Path into an array
+			TrackAttributes.push_back({ buffer, FileAttributes.cFileName });
 		}
 	}
 	FindClose(hFind);
 }
 
 
-
-void CTrackArray::mGetTracknameList(std::string Path) {
-	for (int i = 0; i < TrackID.size(); i++) {
-		
-		NameOpen.open(Path + "\\" + TrackID[i] + "\\" + "displayname");
-		std::getline(NameOpen, buffer);
-		TrackNames.push_back(buffer);
-		NameOpen.close();
-	}
-}
 /*
 //checks displayname access
 bool CTrackArray::mNameFileFound(const char* filename)
@@ -50,7 +61,7 @@ bool CTrackArray::mNameFileFound(const char* filename)
 
 //extracts the UnixTimeStamp from the TrackDirectory (hexadem)
 std::string CTrackArray::mGetTimeStamp(int i) {
-	std::string UnixStamp = TrackID[i];
+	std::string UnixStamp = TrackAttributes[i].TrackID;
 	UnixStamp.erase(0, 32);
 	UnixStamp.erase(10, 16);
 	return UnixStamp;
@@ -60,7 +71,7 @@ std::string CTrackArray::mGetTimeStamp(int i) {
 
 //Starts all that shit
 void CTrackArray::Init(std::string classstring) {
-	mGetFirstFile(classstring);
-	mGetNextFiles();
+	mGetFirstTrack(classstring);
+	mGetNextTracks(classstring);
 }
 
