@@ -12,7 +12,7 @@ void CUI::mInitUI(HWND hWnd, HINSTANCE hInst) {
     }
 
     Path.mSetEditorPathVariable();
-    File->Init(Path.mUseEditorPath().c_str());
+    File->Init(Path.mGetEditorPath().c_str());
     mSetUI(hWnd, hInst);
 }
 
@@ -50,17 +50,17 @@ void CUI::mOnButtonClick(int i) {
 
     Path.mSetEditorPathVariable();                      //Set Path to EditorTracks
 
-    Profile.mSetUbiID(Path.mUseEditorPath());           //ProfileID
-    File->Init(Path.mUseEditorPath());                  //Retrieves Array of tracks -> trkfile here
+    Path.mSetUbiID();                                   //ProfileID
+    File->Init(Path.mGetEditorPath());                  //Retrieves Array of tracks -> trkfile here
     
-    Port.mGetTemplatePath(Path.mUseEditorPath(), Profile.mUseUbiID());
+    Port.mGetTemplatePath(Path.mGetEditorPath(), Path.mGetUbiID());
     
     //creates Editor Folder
-    Port.mCreateFolder(Path.mUseEditorPath(), Profile.mUseUbiID(), File->mGetTimeStamp(i));
+    Port.mCreateFolder(Path.mGetEditorPath(), Path.mGetUbiID(), File->mGetTimeStamp(i));
     //copies necessary data to new Folder
-    Port.mCopyNameMDA(Path.mUseEditorPath(), File->TrackAttributes[i].TrackID);
+    Port.mCopyNameMDA(Path.mGetEditorPath(), File->TrackAttributes[i].TrackID);
     //copies modified Trackfile to new Folder
-    Port.mModifyTrkfile(Path.mUseEditorPath(), File->TrackAttributes[i].TrackID);
+    Port.mModifyTrkfile(Path.mGetEditorPath(), File->TrackAttributes[i].TrackID);
 
     MessageBox(NULL, L"Done", L"Porting Process", MB_OK);
 
