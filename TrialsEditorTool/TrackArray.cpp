@@ -48,16 +48,6 @@ void CTrackArray::mGetNextTracks(std::string input) {
 }
 
 
-/*
-//checks displayname access
-bool CTrackArray::mNameFileFound(const char* filename)
-{
-	std::ifstream infile(filename);
-	return infile.good();
-}
-*/
-
-
 
 //extracts the UnixTimeStamp from the TrackDirectory (hexadem)
 std::string CTrackArray::mGetTimeStamp(int i) {
@@ -69,9 +59,26 @@ std::string CTrackArray::mGetTimeStamp(int i) {
 
 
 
+//compares two names
+bool CTrackArray::compareAlphabet(const TrackStruct& first, const TrackStruct& second) {
+	
+	return first.TrackName < second.TrackName;
+}
+
+
+
+//sort tracklist alphabetically
+void CTrackArray::mSortTracklist() {
+	
+	sort(TrackAttributes.begin(), TrackAttributes.end(), compareAlphabet);
+}
+
+
+
 //Starts all that shit
 void CTrackArray::Init(std::string classstring) {
 	mGetFirstTrack(classstring);
 	mGetNextTracks(classstring);
+	mSortTracklist();
 }
 

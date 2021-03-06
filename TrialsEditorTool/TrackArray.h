@@ -4,8 +4,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
-#include "Resource.h"
-
+#include <algorithm>
 
 class CTrackArray {
 public:
@@ -13,9 +12,9 @@ public:
 	void Init(std::string classstring);
 	void mGetFirstTrack(std::string input);
 	void mGetNextTracks(std::string input);
+	void mSortTracklist();
 
 	std::string mGetTimeStamp(int i);
-	//bool mNameFileFound(const char* filename);
 
 
 	struct TrackStruct {
@@ -24,6 +23,7 @@ public:
 	};
 
 	std::vector<TrackStruct> TrackAttributes;
+	static bool compareAlphabet(const TrackStruct& first, const TrackStruct& second);
 
 private:
 

@@ -11,8 +11,9 @@ void CUI::mInitUI(HWND hWnd, HINSTANCE hInst) {
 
     }
 
-    Path.mSetEditorPathVariable();
-    File->Init(Path.mGetEditorPath().c_str());
+    Path.mSetEditorPathVariable();                      //Set Path to EditorTracks
+    Path.mSetUbiID();                                   //ProfileID
+    File->Init(Path.mGetEditorPath());
     mSetUI(hWnd, hInst);
 }
 
@@ -47,11 +48,6 @@ void CUI::mOnButtonClick(int i) {
         MessageBox(NULL, L"No track was selected!", L"Error!", MB_OK | MB_ICONERROR);
         return;
     }
-
-    Path.mSetEditorPathVariable();                      //Set Path to EditorTracks
-
-    Path.mSetUbiID();                                   //ProfileID
-    File->Init(Path.mGetEditorPath());                  //Retrieves Array of tracks -> trkfile here
     
     Port.mGetTemplatePath(Path.mGetEditorPath(), Path.mGetUbiID());
     
