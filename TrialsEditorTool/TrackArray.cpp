@@ -1,48 +1,47 @@
 #include "TrackArray.h"
 
 //retrieves first TrackID
-void CTrackArray::mGetFirstTrack(std::string input) {
+void CTrackArray::mSetTrackVector(std::string input) {
 
 	hFind = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &FileAttributes); //handle keeps index
 
-	while ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '.') || (*FileAttributes.cFileName == '..')) {
+	//filter out '.' and '..' directories
+	while ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY
+			|| (*FileAttributes.cFileName == '.')
+			|| (*FileAttributes.cFileName == '..'))
+	{
 		FindNextFileA(hFind, &FileAttributes);
 	}
 	
-	std::wstring buffer;
-
-	//get the Trackname from that ID
-	NameOpen.open(input + "\\" + FileAttributes.cFileName + "\\" + "displayname");
-	std::getline(NameOpen, buffer);
-	NameOpen.close();
-
-	//writes both Name and Path into an array
-	TrackAttributes.push_back({ buffer, FileAttributes.cFileName });
-}
-
-
-
-//retrieves Rest of TrackIDs
-void CTrackArray::mGetNextTracks(std::string input) {
 	
-	std::wstring buffer;
+	
+//get rest of tracks
+	std::wstring Namebuffer;
+	std::string OwnTrackFilter = "-0-0000000000000";
 
 	while ((GetLastError() & ERROR_NO_MORE_FILES) == 0) {
 
 		FindNextFileA(hFind, &FileAttributes);
 
-		if ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '.')){
-			
-			buffer = L"";
+		//check for duplicate FileNames
+		std::string duplicate = FileAttributes.cFileName;
 
-			//get the Trackname from that ID
-			NameOpen.open(input + "\\" + FileAttributes.cFileName + "\\" + "displayname");
-			std::getline(NameOpen, buffer);
-			NameOpen.close();
+		if ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '..')) {
 
-			//writes both Name and Path into an array
-			TrackAttributes.push_back({ buffer, FileAttributes.cFileName });
+			if (duplicate.find(OwnTrackFilter) == std::string::npos) {
+
+				Namebuffer = L"";
+
+				//get the Trackname from that ID
+				NameOpen.open(input + "\\" + FileAttributes.cFileName + "\\" + "displayname");
+				std::getline(NameOpen, Namebuffer);
+				NameOpen.close();
+
+				//writes both Name and Path into an array
+				TrackAttributes.push_back({ Namebuffer, FileAttributes.cFileName });
+			}
 		}
+
 	}
 	FindClose(hFind);
 }
@@ -77,8 +76,7 @@ void CTrackArray::mSortTracklist() {
 
 //Starts all that shit
 void CTrackArray::Init(std::string classstring) {
-	mGetFirstTrack(classstring);
-	mGetNextTracks(classstring);
+	mSetTrackVector(classstring);
 	mSortTracklist();
 }
 

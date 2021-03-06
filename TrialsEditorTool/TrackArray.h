@@ -10,8 +10,7 @@ class CTrackArray {
 public:
 
 	void Init(std::string classstring);
-	void mGetFirstTrack(std::string input);
-	void mGetNextTracks(std::string input);
+	void mSetTrackVector(std::string input);
 	void mSortTracklist();
 
 	std::string mGetTimeStamp(int i);
