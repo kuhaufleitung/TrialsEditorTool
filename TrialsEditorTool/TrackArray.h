@@ -11,22 +11,23 @@ class CTrackArray {
 public:
 
 	void Init(std::string classstring);
-	void mGetFirstFile(std::string input);
-	void mGetNextFiles();
+	void mGetFirstTrack(std::string input);
+	void mGetNextTracks(std::string input);
 
-	void mGetTracknameList(std::string Path);
 	std::string mGetTimeStamp(int i);
 	//bool mNameFileFound(const char* filename);
 
-	std::vector<std::string> TrackID;
-	std::vector<std::wstring> TrackNames;
 
+	struct TrackStruct {
+		std::wstring TrackName;
+		std::string TrackID;
+	};
 
+	std::vector<TrackStruct> TrackAttributes;
 
 private:
 
 	std::wifstream NameOpen;
-	std::wstring buffer;
 
 	HANDLE hFind;
 	WIN32_FIND_DATAA FileAttributes;

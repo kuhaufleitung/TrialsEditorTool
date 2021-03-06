@@ -18,7 +18,11 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-  
+
+
+CUI* Logic = new CUI;
+
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -39,10 +43,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
     
-    CUI* Copy = new CUI;
-    Copy->mInitUI(hWnd, hInstance);
-
-
+    
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TRIALSEDITORTOOL));
     
     MSG msg;
@@ -132,6 +133,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_CREATE:
+        
+        //setup UI
+        Logic->mInitUI(hWnd, hInst);
+        break;
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -153,12 +160,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 // Get selected index.
                 int lbItem = (int)SendMessage(hwndList, LB_GETCURSEL, 0, 0);
 
-                
-                CUI* Port = new CUI;
-                
-                Port->mOnButtonClick(lbItem);
-
-                delete Port;
+                //port the track when button is clicked
+                Logic->mOnButtonClick(lbItem);
             }
                 break;
             default:
@@ -175,6 +178,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         break;
     case WM_DESTROY:
+        
+        //free memory
+        delete Logic;
+
         PostQuitMessage(0);
         break;
     default:
