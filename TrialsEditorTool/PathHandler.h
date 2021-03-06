@@ -12,11 +12,12 @@ public:
 	bool mCfgFound(const char* filename);
 
 	void mSetEditorPathVariable();
+	void mSetUbiID();
 
-	std::string mUseEditorPath();
+	std::string mGetEditorPath();
+	std::string mGetUbiID();
 
 	bool isConfigFileCreated;
-
 
 
 private:
@@ -24,6 +25,10 @@ private:
 	std::fstream CfgFile;
 	std::string const PathName = "Path.cfg";
 	std::string EditorPath;
+	std::string UbisoftID;
+
+	HANDLE hFind;
+	WIN32_FIND_DATAA data;
 
 	char* docdir = getenv("USERPROFILE"); //path to Documents folder
 };

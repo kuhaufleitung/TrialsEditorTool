@@ -3,7 +3,6 @@
 #include <string>
 #include <Windows.h>
 #include "PathHandler.h"
-#include "ProfileID.h"
 #include "TrackArray.h"
 #include "PortTrack.h"
 #include "Resource.h"
@@ -21,7 +20,6 @@ private:
 
 	CPathHandle Path;
 	CTrackArray* File = new CTrackArray;
-	CProfileID Profile;
 	CPort Port;
 
 	HWND hList;

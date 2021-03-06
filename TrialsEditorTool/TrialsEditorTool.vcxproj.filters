@@ -27,9 +27,6 @@
     <ClInclude Include="PathHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ProfileID.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TrackArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,9 +42,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PathHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ProfileID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TrackArray.cpp">

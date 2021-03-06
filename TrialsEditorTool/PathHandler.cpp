@@ -49,6 +49,32 @@ void CPathHandle::mSetEditorPathVariable() {
 
 
 
-std::string CPathHandle::mUseEditorPath() {
+//sets own ID for the new track folder
+void CPathHandle::mSetUbiID() {
+	std::string Name = "";
+	std::string NeededSubstring = "-0-0000000000000";
+
+	hFind = FindFirstFileA((LPCSTR)(EditorPath + "\\*").c_str(), &data);
+	Name = data.cFileName;
+
+
+	while (Name.find(NeededSubstring) == std::string::npos) {
+		FindNextFileA(hFind, &data);
+		Name = data.cFileName;
+	}
+	FindClose(hFind);
+
+	Name.resize(32);
+	UbisoftID = Name;
+
+}
+
+
+
+std::string CPathHandle::mGetUbiID() {
+	return UbisoftID;
+}
+
+std::string CPathHandle::mGetEditorPath() {
 	return EditorPath;
 }
