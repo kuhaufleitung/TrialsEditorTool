@@ -49,7 +49,7 @@ void CUI::mOnButtonClick(int i) {
         return;
     }
     
-    Port.mGetTemplatePath(Path.mGetEditorPath(), Path.mGetUbiID());
+    Port.mSetTemplatePath(Path.mGetEditorPath(), Path.mGetUbiID());
     
     //creates Editor Folder
     Port.mCreateFolder(Path.mGetEditorPath(), Path.mGetUbiID(), File->mGetTimeStamp(i));

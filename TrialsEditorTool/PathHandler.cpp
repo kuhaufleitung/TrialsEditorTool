@@ -1,5 +1,5 @@
 #include "PathHandler.h"
-namespace fs = std::filesystem;
+
 
 //checks Path.cfg access
 bool CPathHandle::mCfgFound(const char* filename)
