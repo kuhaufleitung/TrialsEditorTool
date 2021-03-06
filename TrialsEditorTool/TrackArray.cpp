@@ -15,7 +15,7 @@ void CTrackArray::mSetTrackVector(std::string input) {
 	
 	
 	
-//get rest of tracks
+	//get rest of tracks
 	std::wstring Namebuffer;
 	std::string OwnTrackFilter = "-0-0000000000000";
 

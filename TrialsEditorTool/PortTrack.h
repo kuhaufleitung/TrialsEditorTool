@@ -8,8 +8,8 @@
 class CPort {
 public:
 
-	std::string mGetTemplatePath(std::string input, std::string ProfileID);
-	std::string mUseTemplatePath();
+	std::string mSetTemplatePath(std::string input, std::string ProfileID);
+	std::string mGetTemplatePath();
 
 	void mCreateFolder(std::string EditorPath, std::string ProfileID, std::string Unix);
 	void mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID);

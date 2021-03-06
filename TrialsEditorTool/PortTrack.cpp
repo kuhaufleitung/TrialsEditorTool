@@ -1,7 +1,8 @@
 #include "PortTrack.h"
 
+
 //gets path of one own created track
-std::string CPort::mGetTemplatePath(std::string input, std::string ProfileID) {
+std::string CPort::mSetTemplatePath(std::string input, std::string ProfileID) {
 
 	hFindTemplate = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &data);
 	TemplateFolder = data.cFileName;
@@ -16,7 +17,7 @@ std::string CPort::mGetTemplatePath(std::string input, std::string ProfileID) {
 
 
 
-std::string CPort::mUseTemplatePath() {
+std::string CPort::mGetTemplatePath() {
 	return TemplateFolder;
 }
 
