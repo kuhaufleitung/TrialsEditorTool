@@ -34,7 +34,6 @@ void CPort::mCreateFolder(std::string EditorPath, std::string ProfileID, std::st
 
 
 
-//copies requiered displayname file and metadata.mda to the created folder
 void CPort::mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID) {
 	
 	//Copy displayname
@@ -44,6 +43,8 @@ void CPort::mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID) {
 	if (!failD) {
 		DWORD error = GetLastError();
 	}
+
+
 
 	
 	//Copy metadata.mda

@@ -9,7 +9,7 @@
 class CTrackArray {
 public:
 
-	void Init(std::string classstring);
+	void Init(std::string Path);
 	void mSetTrackVector(std::string input);
 	void mSortTracklist();
 

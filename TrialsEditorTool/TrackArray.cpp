@@ -1,9 +1,8 @@
 #include "TrackArray.h"
 
-//retrieves first TrackID
 void CTrackArray::mSetTrackVector(std::string input) {
 
-	hFind = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &FileAttributes); //handle keeps index
+	hFind = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &FileAttributes);
 
 	//filter out '.' and '..' directories
 	while ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) != FILE_ATTRIBUTE_DIRECTORY
@@ -15,7 +14,6 @@ void CTrackArray::mSetTrackVector(std::string input) {
 	
 	
 	
-	//get rest of tracks
 	std::wstring Namebuffer;
 	std::string OwnTrackFilter = "-0-0000000000000";
 
@@ -23,7 +21,6 @@ void CTrackArray::mSetTrackVector(std::string input) {
 
 		FindNextFileA(hFind, &FileAttributes);
 
-		//check for duplicate FileNames
 		std::string duplicate = FileAttributes.cFileName;
 
 		if ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '..')) {
@@ -32,12 +29,10 @@ void CTrackArray::mSetTrackVector(std::string input) {
 
 				Namebuffer = L"";
 
-				//get the Trackname from that ID
 				NameOpen.open(input + "\\" + FileAttributes.cFileName + "\\" + "displayname");
 				std::getline(NameOpen, Namebuffer);
 				NameOpen.close();
 
-				//writes both Name and Path into an array
 				TrackAttributes.push_back({ Namebuffer, FileAttributes.cFileName });
 			}
 		}
@@ -58,7 +53,6 @@ std::string CTrackArray::mGetTimeStamp(int i) {
 
 
 
-//compares two names
 bool CTrackArray::compareAlphabet(const TrackStruct& first, const TrackStruct& second) {
 	
 	return first.TrackName < second.TrackName;
@@ -66,7 +60,6 @@ bool CTrackArray::compareAlphabet(const TrackStruct& first, const TrackStruct& s
 
 
 
-//sort tracklist alphabetically
 void CTrackArray::mSortTracklist() {
 	
 	sort(TrackAttributes.begin(), TrackAttributes.end(), compareAlphabet);
@@ -74,9 +67,8 @@ void CTrackArray::mSortTracklist() {
 
 
 
-//Starts all that shit
-void CTrackArray::Init(std::string classstring) {
-	mSetTrackVector(classstring);
+void CTrackArray::Init(std::string Path) {
+	mSetTrackVector(Path);
 	mSortTracklist();
 }
 
