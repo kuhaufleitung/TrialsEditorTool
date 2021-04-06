@@ -104,7 +104,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Store instance handle in our global variable
 
-   hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+   hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
        CW_USEDEFAULT, CW_USEDEFAULT, 460, 740, nullptr, nullptr, hInstance, nullptr);
 
 
@@ -148,12 +148,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
+
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
             
             case ID_PORTBUTTON:
-            case BN_CLICKED:
+            //case BN_CLICKED:
             {
                 HWND hwndList = GetDlgItem(hWnd, IDC_LISTBOX);
 
@@ -161,9 +162,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 int lbItem = (int)SendMessage(hwndList, LB_GETCURSEL, 0, 0);
 
                 //port the track when button is clicked
-                Logic->mOnButtonClick(lbItem);
-            }
-                break;
+                Logic->mOnPortClick(lbItem);
+            } break;
+
+            case ID_REFRESHBUTTON:
+            {
+                Logic->mOnRefreshClick();
+            } break;
+
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }

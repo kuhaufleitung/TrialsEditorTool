@@ -162,6 +162,7 @@
     <ResourceCompile Include="TrialsEditorTool.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="refresh.ico" />
     <Image Include="small.ico" />
     <Image Include="TrialsEditorTool.ico" />
   </ItemGroup>

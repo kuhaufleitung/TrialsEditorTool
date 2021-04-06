@@ -12,8 +12,8 @@ public:
 
 	void mInitUI(HWND hWnd, HINSTANCE hInst);
 	void mSetUI(HWND hWnd, HINSTANCE hInst);
-	void mOnButtonClick(int i);
-	
+	void mOnPortClick(int i);
+	void mOnRefreshClick();
 
 
 private:
@@ -23,6 +23,7 @@ private:
 	CPort Port;
 
 	HWND hList;
-	HWND hButton;
+	HWND hPortButton;
+	HWND hRefreshButton;
 
 };

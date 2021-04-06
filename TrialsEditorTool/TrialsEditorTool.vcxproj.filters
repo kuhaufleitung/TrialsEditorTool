@@ -66,5 +66,8 @@
     <Image Include="TrialsEditorTool.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="refresh.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

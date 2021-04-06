@@ -1,7 +1,6 @@
 #include "PathHandler.h"
 
 
-//checks Path.cfg access
 bool CPathHandle::mCfgFound(const char* filename)
 {
 	std::ifstream infile(filename);
@@ -10,7 +9,6 @@ bool CPathHandle::mCfgFound(const char* filename)
 
 
 
-//opens cfg and writes StdPath if not created
 bool CPathHandle::mPathDefaults() {
 
 	
@@ -35,7 +33,6 @@ bool CPathHandle::mPathDefaults() {
 
 
 
-//reads file to EditorPath sstream and returns its content
 void CPathHandle::mSetEditorPathVariable() {
 
 	std::stringstream FileStream;
@@ -49,7 +46,6 @@ void CPathHandle::mSetEditorPathVariable() {
 
 
 
-//sets own ID for the new track folder
 void CPathHandle::mSetUbiID() {
 	std::string Name = "";
 	std::string NeededSubstring = "-0-0000000000000";
