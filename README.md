@@ -21,7 +21,6 @@ The config is located at the same directory where the TrialsEditorTool.exe is lo
 # TODO
 
 - Rising/Evo Support
-- Refresh tracklist
 
 # Current Issues
 
