@@ -12,6 +12,14 @@ void CUI::mInitUI(HWND hWnd, HINSTANCE hInst) {
 
     Path.mSetEditorPathVariable();
     Path.mSetUbiID();
+
+    if (Path.foundTrack == false) {
+        MessageBox(NULL, L"No own created track was found!\nPlease create a track in the editor and restart the program. ", L"Error!", MB_OK | MB_ICONERROR);
+        PostMessage(hWnd, WM_CLOSE, 0, 0);
+        return;
+    }
+
+
     File->Init(Path.mGetEditorPath());
     mSetUI(hWnd, hInst);
 }

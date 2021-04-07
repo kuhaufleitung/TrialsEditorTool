@@ -54,14 +54,21 @@ void CPathHandle::mSetUbiID() {
 	Name = data.cFileName;
 
 
-	while (Name.find(NeededSubstring) == std::string::npos) {
+	while ((GetLastError() & ERROR_NO_MORE_FILES) == 0) {
+		if (Name.find(NeededSubstring) != std::string::npos) {
+			
+			foundTrack = true;
+			Name.resize(32);
+			UbisoftID = Name;
+
+		}
 		FindNextFileA(hFind, &data);
 		Name = data.cFileName;
 	}
+	
+	//reset error so it isnt ERROR_NO_MORE_FILES as this is used again when creating the TrackArray
+	SetLastError(0);
 	FindClose(hFind);
-
-	Name.resize(32);
-	UbisoftID = Name;
 
 }
 
