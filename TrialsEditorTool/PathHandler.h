@@ -18,7 +18,7 @@ public:
 	std::string mGetUbiID();
 
 	bool isConfigFileCreated;
-
+	bool foundTrack = false;
 
 private:
 

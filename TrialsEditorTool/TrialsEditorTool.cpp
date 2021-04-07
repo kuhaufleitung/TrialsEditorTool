@@ -154,7 +154,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 break;
             
             case ID_PORTBUTTON:
-            //case BN_CLICKED:
             {
                 HWND hwndList = GetDlgItem(hWnd, IDC_LISTBOX);
 
@@ -183,13 +182,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             EndPaint(hWnd, &ps);
         }
         break;
-    case WM_DESTROY:
-        
-        //free memory
-        delete Logic;
+    case WM_CLOSE:
+        DestroyWindow(hWnd);
+        break;
 
+    case WM_DESTROY:
+        delete Logic;
         PostQuitMessage(0);
         break;
+
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
