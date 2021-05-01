@@ -39,7 +39,7 @@ void CUI::mSetUI(HWND hWnd, HINSTANCE hInst) {
     }
 
     hPortButton = CreateWindowExW(WS_EX_WINDOWEDGE, L"Button", L"Port to Editor", WS_TABSTOP | WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON, 20, 630, 350, 40, hWnd, (HMENU)ID_PORTBUTTON, hInst, 0);
-    hRefreshButton = CreateWindowExW(0, L"Button", L"", WS_TABSTOP | WS_CHILD | WS_VISIBLE | BS_ICON, 380, 630, 40, 40, hWnd, (HMENU)ID_REFRESHBUTTON, hInst, 0);
+    hRefreshButton = CreateWindowExW(0, L"Button", L"", WS_TABSTOP | WS_CHILD | WS_VISIBLE | BS_ICON | BS_DEFPUSHBUTTON, 380, 630, 40, 40, hWnd, (HMENU)ID_REFRESHBUTTON, hInst, 0);
     
 
     //set default Font & Icon
