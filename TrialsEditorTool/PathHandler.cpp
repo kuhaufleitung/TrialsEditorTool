@@ -14,12 +14,11 @@ bool CPathHandle::mPathDefaults() {
 	
 	if (mCfgFound("Path.cfg") == false) {
 
-		isConfigFileCreated = false;
 
 		CfgFile.open(PathName, std::fstream::out);
 		CfgFile << docdir << "\\Documents\\TrialsFusion\\SavedGames" << std::endl << std::endl;
 
-		CfgFile << "//FirstPath looks like this structure and points to your Trials SavedGames Directory:\n//C:\\Users\\*yourname*\\Documents\\TrialsFusion\\SavedGames" << std::endl << std::endl
+		CfgFile << "//The path looks like this structure and points to your Trials SavedGames Directory:\n//C:\\Users\\*yourname*\\Documents\\TrialsFusion\\SavedGames" << std::endl << std::endl
 				<< "//There have to be NO backslashes at the end!" << std::endl
 				<< "//This file gets auto generated when it isnt available in the program directory." << std::endl << std::endl
 				<< "//TrialsEditorTool by kuhaufleitung";

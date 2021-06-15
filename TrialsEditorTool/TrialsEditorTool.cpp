@@ -105,7 +105,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Store instance handle in our global variable
 
    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
-       CW_USEDEFAULT, CW_USEDEFAULT, 460, 740, nullptr, nullptr, hInstance, nullptr);
+       CW_USEDEFAULT, CW_USEDEFAULT, 460, 800, nullptr, nullptr, hInstance, nullptr);
 
 
    if (!hWnd)
@@ -162,8 +162,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
                 //port the track when button is clicked
                 Logic->mOnPortClick(lbItem);
+                Logic->mOnRefreshClick();
             } break;
 
+            case IDC_DROPDOWN:
+            {
+                if (HIWORD(wParam) == CBN_SELCHANGE) {
+                    int dItem = SendMessage((HWND) lParam, (UINT) CB_GETCURSEL, (WPARAM) 0, (LPARAM) 0);
+                    
+                    Logic->mSetGame(dItem);
+                }
+            } break;
             case ID_REFRESHBUTTON:
             {
                 Logic->mOnRefreshClick();
