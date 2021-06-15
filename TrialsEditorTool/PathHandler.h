@@ -17,7 +17,7 @@ public:
 	std::string mGetEditorPath();
 	std::string mGetUbiID();
 
-	bool isConfigFileCreated;
+	bool isConfigFileCreated = false;
 	bool foundTrack = false;
 
 private:
@@ -27,7 +27,7 @@ private:
 	std::string EditorPath;
 	std::string UbisoftID;
 
-	HANDLE hFind;
+	HANDLE hFind = nullptr;
 	WIN32_FIND_DATAA data;
 
 	char* docdir = getenv("USERPROFILE"); //path to Documents folder

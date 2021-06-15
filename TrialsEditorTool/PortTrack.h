@@ -22,9 +22,9 @@ private:
 	std::string TemplateFolder;
 	std::string NewTrackFolder;
 
-	HANDLE hFindTemplate;
+	HANDLE hFindTemplate = nullptr;
 	WIN32_FIND_DATAA data;
-	LPSECURITY_ATTRIBUTES sec;
+	LPSECURITY_ATTRIBUTES sec = nullptr;
 
 	std::ifstream OriginalTrack;
 	std::ifstream TemplateTrack;

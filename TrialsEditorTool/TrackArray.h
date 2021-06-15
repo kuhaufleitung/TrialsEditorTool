@@ -28,6 +28,6 @@ private:
 
 	std::wifstream NameOpen;
 
-	HANDLE hFind;
+	HANDLE hFind = nullptr;
 	WIN32_FIND_DATAA FileAttributes;
 };
