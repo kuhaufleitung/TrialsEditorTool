@@ -4,6 +4,7 @@
 #include <sstream>
 #include <filesystem>
 #include <windows.h>
+#include "enum.h"
 
 class CPathHandle {
 public:
@@ -11,9 +12,10 @@ public:
 	bool mPathDefaults();
 	bool mCfgFound(const char* filename);
 
-	void mSetEditorPathVariable();
-	void mSetUbiID();
-
+	void mRetrieveEditorPathVariables();
+	void mSetUbiID(Game::GameSel Game);
+	void mSetEditorPath(Game::GameSel Game);
+	
 	std::string mGetEditorPath();
 	std::string mGetUbiID();
 
@@ -25,6 +27,9 @@ private:
 	std::fstream CfgFile;
 	std::string const PathName = "Path.cfg";
 	std::string EditorPath;
+	std::string EditorPathFusion;
+	std::string EditorPathEvo;
+	std::string EditorPathRising;
 	std::string UbisoftID;
 
 	HANDLE hFind = nullptr;

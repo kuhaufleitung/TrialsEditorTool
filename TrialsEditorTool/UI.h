@@ -7,11 +7,7 @@
 #include "PortTrack.h"
 #include "Resource.h"
 #include <CommCtrl.h>
-
-enum GameSel {
-	None = 0, Evo, Fusion, Rising
-};
-
+#include "enum.h"
 
 class CUI {
 public:
@@ -20,8 +16,8 @@ public:
 	void mSetUI(HWND hWnd, HINSTANCE hInst);
 	void mOnPortClick(int TrackIndex);
 	void mOnRefreshClick();
-	void mSetGame(int GameIndex);
-	GameSel mGetGame();
+	void mSetGame(int GameIndex, HWND hWnd);
+	Game::GameSel mGetGame();
 	
 private:
 
@@ -29,7 +25,7 @@ private:
 	CTrackArray* File = new CTrackArray;
 	CPort Port;
 
-	GameSel Game;
+	Game::GameSel Game;
 
 	HWND hList = nullptr;
 	HWND GameText = nullptr;

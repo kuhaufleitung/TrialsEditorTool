@@ -64,11 +64,3 @@ void CTrackArray::mSortTracklist() {
 	
 	sort(TrackAttributes.begin(), TrackAttributes.end(), compareAlphabet);
 }
-
-
-
-void CTrackArray::Init(std::string Path) {
-	mSetTrackVector(Path);
-	mSortTracklist();
-}
-
