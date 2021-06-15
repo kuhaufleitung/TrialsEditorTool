@@ -170,7 +170,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 if (HIWORD(wParam) == CBN_SELCHANGE) {
                     int dItem = SendMessage((HWND) lParam, (UINT) CB_GETCURSEL, (WPARAM) 0, (LPARAM) 0);
                     
-                    Logic->mSetGame(dItem);
+                    Logic->mSetGame(dItem, hWnd);
                 }
             } break;
             case ID_REFRESHBUTTON:

@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="enum.h" />
     <ClInclude Include="PortTrack.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="TrackArray.h" />

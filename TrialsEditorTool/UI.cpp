@@ -2,26 +2,20 @@
 
 
 void CUI::mInitUI(HWND hWnd, HINSTANCE hInst) {
-    
-    Game = None;
+   
     Path.mPathDefaults();
+
+    Game = Game::GameSel::None;
 
     if (Path.isConfigFileCreated == false) {
         MessageBox(NULL, L"If you can't see any tracks, check your Path.cfg.\nIt has been created in the same folder.", L"First Start", MB_OK);
 
     }
 
-    Path.mSetEditorPathVariable();
-    Path.mSetUbiID();
+    Path.mRetrieveEditorPathVariables();
+    Path.mSetEditorPath(Game);
+    Path.mSetUbiID(Game);
 
-    if (Path.foundTrack == false) {
-        MessageBox(NULL, L"No own created track was found!\nPlease create a track in the editor and restart the program. ", L"Error!", MB_OK | MB_ICONERROR);
-        PostMessage(hWnd, WM_CLOSE, 0, 0);
-        return;
-    }
-
-
-    File->Init(Path.mGetEditorPath());
     mSetUI(hWnd, hInst);
 }
 
@@ -39,10 +33,6 @@ void CUI::mSetUI(HWND hWnd, HINSTANCE hInst) {
     hRefreshButton = CreateWindowExW(0, L"Button", L"", WS_TABSTOP | WS_CHILD | WS_VISIBLE | BS_ICON | BS_DEFPUSHBUTTON, 380, 690, 40, 40, hWnd, (HMENU)ID_REFRESHBUTTON, hInst, 0);
 
 
-    //fills Dropdown & Listbox with Games & Tracks
-    for (int i = 0; i < File->TrackAttributes.size(); i++) {
-        SendMessageW(hList, LB_ADDSTRING, 0, (LPARAM)File->TrackAttributes[i].TrackName.c_str());
-    }
     SendMessageW(hGameSelection, CB_ADDSTRING, 0, (LPARAM)TEXT("Trials Evolution Gold Edition"));
     SendMessageW(hGameSelection, CB_ADDSTRING, 0, (LPARAM)TEXT("Trials Fusion"));
     SendMessageW(hGameSelection, CB_ADDSTRING, 0, (LPARAM)TEXT("Trials Rising"));
@@ -69,25 +59,25 @@ void CUI::mOnPortClick(int Trackindex) {
     
 
     switch (Game){
-        case Evo:
+    case Game::GameSel::Evo:
         {
 
         }break;
-        case Fusion:
+        case Game::GameSel::Fusion:
         {
 
         }break;
-        case Rising:
+        case Game::GameSel::Rising:
         {
 
         }break;
-        case None:
+        case Game::GameSel::None:
         {
 
         }break;
     }
-              
-            
+        
+
     Port.mSetTemplatePath(Path.mGetEditorPath(), Path.mGetUbiID());
     
     Port.mCreateFolder(Path.mGetEditorPath(), Path.mGetUbiID(), File->mGetTimeStamp(Trackindex));
@@ -113,13 +103,24 @@ void CUI::mOnRefreshClick() {
     
 }
 
-void CUI::mSetGame(int GameIndex) {
+void CUI::mSetGame(int GameIndex, HWND hWnd) {
     
     //+1 because index doesnt know enum starts with none = 0
     GameIndex++;
-    Game = (GameSel)GameIndex;
+    Game = (Game::GameSel)GameIndex;
+
+    Path.mSetEditorPath(Game);
+    Path.mSetUbiID(Game);
+
+    if (Path.foundTrack == false) {
+        MessageBox(NULL, L"No own created track was found!\nPlease create a track in the editor and restart the program. ", L"Error!", MB_OK | MB_ICONERROR);
+        PostMessage(hWnd, WM_CLOSE, 0, 0);
+        return;
+    }
+
+    mOnRefreshClick();
 }
 
-GameSel CUI::mGetGame() {
+Game::GameSel CUI::mGetGame() {
     return Game;
 }
