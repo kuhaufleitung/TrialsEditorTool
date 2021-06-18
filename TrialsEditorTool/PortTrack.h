@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <Windows.h>
+#include "enum.h"
 
 class CPort {
 public:
@@ -13,7 +14,7 @@ public:
 
 	void mCreateFolder(std::string EditorPath, std::string ProfileID, std::string Unix);
 	void mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID);
-	void mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID);
+	void mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID, Selection::Game Game);
 
 
 

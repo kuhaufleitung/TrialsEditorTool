@@ -5,17 +5,17 @@
 #include <filesystem>
 #include <windows.h>
 #include "enum.h"
+#include <regex>
 
 class CPathHandle {
 public:
 
 	bool mPathDefaults();
-	bool mCfgFound(const char* filename);
 
 	void mRetrieveEditorPathVariables();
-	void mSetUbiID(Game::GameSel Game);
-	void mSetEditorPath(Game::GameSel Game);
-	
+	void mSetUbiID(Selection::Game Game);
+	void mSetEditorPath(Selection::Game Game);
+
 	std::string mGetEditorPath();
 	std::string mGetUbiID();
 
@@ -24,6 +24,9 @@ public:
 
 private:
 
+	bool mCfgFound(const char* filename);
+	std::string mSetRisingUserID();
+
 	std::fstream CfgFile;
 	std::string const PathName = "Path.cfg";
 	std::string EditorPath;
@@ -31,6 +34,7 @@ private:
 	std::string EditorPathEvo;
 	std::string EditorPathRising;
 	std::string UbisoftID;
+	std::string RisingUserID;
 
 	HANDLE hFind = nullptr;
 	WIN32_FIND_DATAA data;

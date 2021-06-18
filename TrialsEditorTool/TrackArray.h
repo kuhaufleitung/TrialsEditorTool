@@ -5,14 +5,15 @@
 #include <fstream>
 #include <iostream>
 #include <algorithm>
+#include "enum.h"
 
 class CTrackArray {
 public:
 
-	void mSetTrackVector(std::string input);
+	void mSetTrackVector(std::string input, Selection::Game Game);
 	void mSortTracklist();
 
-	std::string mGetTimeStamp(int i);
+	std::string mGetTimeStamp(int i, Selection::Game Game);
 
 
 	struct TrackStruct {

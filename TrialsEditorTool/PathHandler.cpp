@@ -12,14 +12,13 @@ bool CPathHandle::mCfgFound(const char* filename)
 bool CPathHandle::mPathDefaults() {
 
 	
-	if (mCfgFound("Path.cfg") == false) {
+	if (!mCfgFound("Path.cfg")) {
 
 
 		CfgFile.open(PathName, std::fstream::out);
 		CfgFile << docdir << "\\Documents\\Ubisoft\\Trials Evolution Gold Edition\\SavedGames" << std::endl;
 		CfgFile << docdir << "\\Documents\\TrialsFusion\\SavedGames" << std::endl;
-		//TODO: get Rising UserID in Path and CacheStorage/usertracks or only usertracks?
-		CfgFile << docdir << "\\Documents\\Trials Rising\\SavedGames\\ID\\" << std::endl << std::endl << std::endl;
+		CfgFile << docdir << "\\Documents\\Trials Rising\\SavedGames" << std::endl << std::endl << std::endl;
 
 
 		CfgFile << "//The path looks like this structure and points to your Trials SavedGames Directory:\n//C:\\Users\\*yourname*\\Documents\\TrialsFusion\\SavedGames" << std::endl << std::endl
@@ -56,6 +55,7 @@ void CPathHandle::mRetrieveEditorPathVariables() {
 		}
 		else if (buffer.find("Rising") != std::string::npos) {
 			EditorPathRising = buffer;
+			EditorPathRising += mSetRisingUserID();
 		}
 	}
 
@@ -66,12 +66,12 @@ void CPathHandle::mRetrieveEditorPathVariables() {
 
 
 
-void CPathHandle::mSetUbiID(Game::GameSel Game) {
+void CPathHandle::mSetUbiID(Selection::Game Game) {
 	
 	std::string Name = "";
 	std::string NeededSubstring = "-0-0000000000000";
 
-	if (Game == Game::GameSel::Evo || Game == Game::GameSel::Fusion) {
+	if (Game == Selection::Game::Evo || Game == Selection::Game::Fusion) {
 
 		hFind = FindFirstFileA((LPCSTR)(EditorPath + "\\*").c_str(), &data);
 		Name = data.cFileName;
@@ -81,10 +81,10 @@ void CPathHandle::mSetUbiID(Game::GameSel Game) {
 			if (Name.find(NeededSubstring) != std::string::npos) {
 
 				foundTrack = true;
-				if (Game == Game::GameSel::Evo) {
+				if (Game == Selection::Game::Evo) {
 					Name.resize(19);
 				}
-				else if (Game == Game::GameSel::Fusion) {
+				else if (Game == Selection::Game::Fusion) {
 					Name.resize(32);
 				}
 				UbisoftID = Name;
@@ -100,8 +100,41 @@ void CPathHandle::mSetUbiID(Game::GameSel Game) {
 		FindClose(hFind);
 		hFind = nullptr;
 
-	} //Rising only needs copying, so no need to do that
+	} else if (Game == Selection::Game::Rising) {
+		
+		//we force foundTrack = true, bc there is no need in checking for own tracks
+		foundTrack = true;
+	}
 
+}
+
+
+
+std::string CPathHandle::mSetRisingUserID() {
+	
+	std::string Name = "";
+	
+	hFind = FindFirstFileA((LPCSTR)(EditorPathRising + "\\*").c_str(), &data);
+	Name = data.cFileName;
+
+	while ((GetLastError() & ERROR_NO_MORE_FILES) == 0) {
+		
+		//FolderFormat: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx a-z,0-9
+		if (std::regex_match (Name, std::regex("([a-z0-9]{8})\\-([a-z0-9]{4})\\-([a-z0-9]{4})\\-([a-z0-9]{4})\\-([a-z0-9]{12})"))) {
+			RisingUserID = Name;
+			break;
+		}
+		FindNextFileA(hFind, &data);
+		Name = data.cFileName;
+	}
+
+	SetLastError(0);
+	FindClose(hFind);
+	hFind = nullptr;
+
+	RisingUserID = "\\" + RisingUserID + "\\CacheStorage\\usertracks";
+
+	return RisingUserID;
 }
 
 
@@ -110,22 +143,26 @@ std::string CPathHandle::mGetUbiID() {
 	return UbisoftID;
 }
 
-void CPathHandle::mSetEditorPath(Game::GameSel Game) {
+
+
+void CPathHandle::mSetEditorPath(Selection::Game Game) {
 	switch (Game) {
-		case Game::GameSel::Evo:
+		case Selection::Game::Evo:
 		{
 			EditorPath = EditorPathEvo;
 		}break;
-		case Game::GameSel::Fusion:
+		case Selection::Game::Fusion:
 		{
 			EditorPath = EditorPathFusion;
 		}break;
-		case Game::GameSel::Rising:
+		case Selection::Game::Rising:
 		{
 			EditorPath = EditorPathRising;
 		}break;
 	}
 }
+
+
 
 std::string CPathHandle::mGetEditorPath() {
 	return EditorPath;

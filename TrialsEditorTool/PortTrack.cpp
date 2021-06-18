@@ -60,7 +60,7 @@ void CPort::mCopyNameMDA(std::string EditorPath, std::string ExistingTrackID) {
 
 
 //copies original track to destination and replaces first few bytes from TemplateTrack
-void CPort::mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID) {
+void CPort::mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID, Selection::Game Game) {
 	
 	TemplateTrack.open(EditorPath + "\\" + TemplateFolder + "\\track.trk", std::fstream::binary);
 	OriginalTrack.open(EditorPath + "\\" + ExistingTrackID + "\\track.trk", std::fstream::binary);
@@ -76,13 +76,28 @@ void CPort::mModifyTrkfile(std::string EditorPath, std::string ExistingTrackID) 
 	std::vector<unsigned char> bufferT(std::istreambuf_iterator<char>(TemplateTrack), {});
 	std::vector<unsigned char> bufferO(std::istreambuf_iterator<char>(OriginalTrack), {});
 	
-	//Template track only needs content until 4C 5A 4D 41 5D -> pos = 59
-	NewTrack.write((char*)&bufferT[0], 58);
+	switch (Game) {
+	case Selection::Game::Evo:
+	{
+		//Template track only needs content until 0x25 -> pos = 38
+		NewTrack.write((char*)&bufferT[0], 38);
 
-	//Existing track only needs content after 4C 5A 4D 41 5D -> pos = 59
-	NewTrack.seekp(58);	//set cursor pos
-	NewTrack.write((char*)&bufferO[58], bufferO.size() - 58);
+		//Existing track only needs content after 0x25 -> pos = 38
+		NewTrack.seekp(38);	//set cursor pos
+		NewTrack.write((char*)&bufferO[38], bufferO.size() - 38);
 
+	}break;
+	case Selection::Game::Fusion:
+	{
+		//0x39 -> pos = 58
+		NewTrack.write((char*)&bufferT[0], 58);
+
+		//0x39 -> pos = 58
+		NewTrack.seekp(58);
+		NewTrack.write((char*)&bufferO[58], bufferO.size() - 58);
+
+	}break;
+	}
 
 
 	TemplateTrack.close();
