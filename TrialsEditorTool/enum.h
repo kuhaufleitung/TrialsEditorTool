@@ -1,7 +1,7 @@
 #pragma once
 
-namespace Game {
+namespace Selection {
 	//enum GameSel : int;
-	enum class GameSel {None, Evo, Fusion, Rising};
+	enum class Game {None, Evo, Fusion, Rising};
 
 }

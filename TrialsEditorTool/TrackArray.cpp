@@ -1,6 +1,6 @@
 #include "TrackArray.h"
 
-void CTrackArray::mSetTrackVector(std::string input) {
+void CTrackArray::mSetTrackVector(std::string input, Selection::Game Game) {
 
 	hFind = FindFirstFileA((LPCSTR)(input + "\\*").c_str(), &FileAttributes);
 
@@ -25,15 +25,34 @@ void CTrackArray::mSetTrackVector(std::string input) {
 
 		if ((FileAttributes.dwFileAttributes | FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY || (*FileAttributes.cFileName == '..')) {
 
-			if (duplicate.find(OwnTrackFilter) == std::string::npos) {
+			switch (Game) {
+			case Selection::Game::Evo:
+			case Selection::Game::Fusion:
+			{
+				if (duplicate.find(OwnTrackFilter) == std::string::npos) {
 
+					Namebuffer = L"";
+
+					NameOpen.open(input + "\\" + FileAttributes.cFileName + "\\" + "displayname");
+					std::getline(NameOpen, Namebuffer);
+					NameOpen.close();
+
+					TrackAttributes.push_back({ Namebuffer, FileAttributes.cFileName });
+				}
+
+			}break;
+			case Selection::Game::Rising:
+			{
 				Namebuffer = L"";
 
+				//TODO: Fetch DisplayName from mda file
 				NameOpen.open(input + "\\" + FileAttributes.cFileName + "\\" + "displayname");
 				std::getline(NameOpen, Namebuffer);
 				NameOpen.close();
 
 				TrackAttributes.push_back({ Namebuffer, FileAttributes.cFileName });
+
+			}break;
 			}
 		}
 
@@ -44,10 +63,27 @@ void CTrackArray::mSetTrackVector(std::string input) {
 
 
 //extracts the UnixTimeStamp from the TrackDirectory (hexadem)
-std::string CTrackArray::mGetTimeStamp(int i) {
+std::string CTrackArray::mGetTimeStamp(int i, Selection::Game Game) {
+	
 	std::string UnixStamp = TrackAttributes[i].TrackID;
-	UnixStamp.erase(0, 32);
-	UnixStamp.erase(10, 16);
+
+	switch (Game) {
+		case Selection::Game::Evo:
+		{
+			UnixStamp.erase(0, 19);
+			UnixStamp.erase(7, 16);
+		}break;
+		case Selection::Game::Fusion:
+		{
+			UnixStamp.erase(0, 32);
+			UnixStamp.erase(10, 16);
+		}break;
+		case Selection::Game::Rising:
+		{
+			return UnixStamp = "";
+		}break;
+	}
+	
 	return UnixStamp;
 }
 

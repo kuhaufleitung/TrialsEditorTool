@@ -105,7 +105,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Store instance handle in our global variable
 
    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
-       CW_USEDEFAULT, CW_USEDEFAULT, 460, 800, nullptr, nullptr, hInstance, nullptr);
+       CW_USEDEFAULT, CW_USEDEFAULT, 460, 780, nullptr, nullptr, hInstance, nullptr);
 
 
    if (!hWnd)
@@ -135,7 +135,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
     case WM_CREATE:
         
-        //setup UI
         Logic->mInitUI(hWnd, hInst);
         break;
 

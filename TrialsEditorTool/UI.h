@@ -17,7 +17,7 @@ public:
 	void mOnPortClick(int TrackIndex);
 	void mOnRefreshClick();
 	void mSetGame(int GameIndex, HWND hWnd);
-	Game::GameSel mGetGame();
+	Selection::Game mGetGame();
 	
 private:
 
@@ -25,10 +25,9 @@ private:
 	CTrackArray* File = new CTrackArray;
 	CPort Port;
 
-	Game::GameSel Game;
+	Selection::Game CurrentGame;
 
 	HWND hList = nullptr;
-	HWND GameText = nullptr;
 	HWND hGameSelection = nullptr;
 	HWND hPortButton = nullptr;
 	HWND hRefreshButton = nullptr;
