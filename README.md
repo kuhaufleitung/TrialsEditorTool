@@ -1,9 +1,8 @@
 # TrialsEditorTool
 
-TrialsEditorTool is a little program for Trials Fusion which lets you port Tracks from Track Central to the Editor.
+TrialsEditorTool is a little program for Trials Evo GE/Fusion which lets you port Tracks from Track Central to the Editor.
 In order to port a track you have to favorite it so it gets downloaded.
 
-Keep in mind this is a very early implementation of it, so thing can still be buggy.
 
 # Install
 
@@ -20,7 +19,7 @@ The config is located at the same directory where the TrialsEditorTool.exe is lo
 
 # TODO
 
-- Rising/Evo Support
+- Rising
 - overview of own created tracks
 
 # Current Issues
