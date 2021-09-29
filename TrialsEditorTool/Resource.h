@@ -15,8 +15,8 @@
 #define IDC_LISTBOX                     307
 #define ID_PORTBUTTON                   308
 #define ID_REFRESHBUTTON                309
-#define IDC_DROPDOWN					310
-#define IDC_STATICGAMELABEL				311
+#define IDC_DROPDOWN                    310
+#define IDC_STATICGAMELABEL             311
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
