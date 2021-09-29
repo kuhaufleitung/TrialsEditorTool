@@ -25,7 +25,7 @@ private:
 	CTrackArray* File = new CTrackArray;
 	CPort Port;
 
-	Selection::Game CurrentGame;
+	Selection::Game CurrentGame = Selection::Game::None;
 
 	HWND hList = nullptr;
 	HWND hGameSelection = nullptr;

@@ -167,7 +167,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDC_DROPDOWN:
             {
                 if (HIWORD(wParam) == CBN_SELCHANGE) {
-                    int dItem = SendMessage((HWND) lParam, (UINT) CB_GETCURSEL, (WPARAM) 0, (LPARAM) 0);
+                    int dItem = (int)SendMessage((HWND) lParam, CB_GETCURSEL, (WPARAM) 0, (LPARAM) 0);
                     
                     Logic->mSetGame(dItem, hWnd);
                 }
