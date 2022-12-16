@@ -62,9 +62,9 @@ void CUI::mOnPortClick(int Trackindex) {
     case Selection::Game::Fusion:
         {
             Port.mSetTemplatePath(Path.mGetEditorPath(), Path.mGetUbiID());
-            Port.mCreateFolder(Path.mGetEditorPath(), Path.mGetUbiID(), File->mGetTimeStamp(Trackindex, CurrentGame));
-            Port.mCopyNameMDA(Path.mGetEditorPath(), File->TrackAttributes[Trackindex].TrackID);
-            Port.mModifyTrkfile(Path.mGetEditorPath(), File->TrackAttributes[Trackindex].TrackID, CurrentGame);
+            Port.mCreateFolder(Path.mGetEditorPath(), Path.mGetUbiID(), File.mGetTimeStamp(Trackindex, CurrentGame));
+            Port.mCopyNameMDA(Path.mGetEditorPath(), File.TrackAttributes[Trackindex].TrackID);
+            Port.mModifyTrkfile(Path.mGetEditorPath(), File.TrackAttributes[Trackindex].TrackID, CurrentGame);
 
             MessageBox(NULL, L"Done", L"Porting Process", MB_OK);
 
@@ -84,14 +84,14 @@ void CUI::mOnPortClick(int Trackindex) {
 
 void CUI::mOnRefreshClick() {
 
-    File->TrackAttributes.clear();
+    File.TrackAttributes.clear();
     SendMessageW(hList, LB_RESETCONTENT, 0, 0);
 
-    File->mSetTrackVector(Path.mGetEditorPath(), CurrentGame);
-    File->mSortTracklist();
+    File.mSetTrackVector(Path.mGetEditorPath(), CurrentGame);
+    File.mSortTracklist();
     
-    for (int i = 0; i < File->TrackAttributes.size(); i++) {
-        SendMessageW(hList, LB_ADDSTRING, 0, (LPARAM)File->TrackAttributes[i].TrackName.c_str());
+    for (int i = 0; i < File.TrackAttributes.size(); i++) {
+        SendMessageW(hList, LB_ADDSTRING, 0, (LPARAM)File.TrackAttributes[i].TrackName.c_str());
     }
     
 }

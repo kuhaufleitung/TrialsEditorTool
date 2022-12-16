@@ -20,8 +20,7 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 
-CUI* Logic = new CUI;
-
+CUI Logic;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -135,7 +134,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
     case WM_CREATE:
         
-        Logic->mInitUI(hWnd, hInst);
+        Logic.mInitUI(hWnd, hInst);
         break;
 
     case WM_COMMAND:
@@ -160,8 +159,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 int lbItem = (int)SendMessage(hwndList, LB_GETCURSEL, 0, 0);
 
                 //port the track when button is clicked
-                Logic->mOnPortClick(lbItem);
-                Logic->mOnRefreshClick();
+                Logic.mOnPortClick(lbItem);
+                Logic.mOnRefreshClick();
             } break;
 
             case IDC_DROPDOWN:
@@ -169,12 +168,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 if (HIWORD(wParam) == CBN_SELCHANGE) {
                     int dItem = (int)SendMessage((HWND) lParam, CB_GETCURSEL, (WPARAM) 0, (LPARAM) 0);
                     
-                    Logic->mSetGame(dItem, hWnd);
+                    Logic.mSetGame(dItem, hWnd);
                 }
             } break;
             case ID_REFRESHBUTTON:
             {
-                Logic->mOnRefreshClick();
+                Logic.mOnRefreshClick();
             } break;
 
             default:
@@ -195,7 +194,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case WM_DESTROY:
-        delete Logic;
         PostQuitMessage(0);
         break;
 

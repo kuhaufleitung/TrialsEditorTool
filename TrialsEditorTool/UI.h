@@ -22,7 +22,7 @@ public:
 private:
 
 	CPathHandle Path;
-	CTrackArray* File = new CTrackArray;
+	CTrackArray File;
 	CPort Port;
 
 	Selection::Game CurrentGame = Selection::Game::None;
